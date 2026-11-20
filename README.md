@@ -76,6 +76,21 @@ docs/                         匿名化检查报告、测试记录、复用说�
 
 ## 三、部署到 GitHub Pages（推荐方案）
 
+### 0. 一条命令完成推送（推荐）
+
+不知道仓库 URL 也没关系，**只给 GitHub 用户名即可**（仓库名默认 `antigen-interactive-course`）：
+
+```bash
+npm run deploy -- <你的GitHub用户名>          # 预演：只打印命令，不动任何东西
+npm run deploy -- <你的GitHub用户名> --run    # 真正执行：改分支名 + 设 remote + push
+```
+
+脚本会顺带做三件事：校验 URL 格式、**对用户名做匿名风险自检**（是否为真实姓名拼音/含生日/含院校缩写）、检查分支是否 `main`（CI 只监听 main）。
+
+push 时 Git Credential Manager 会弹 GitHub 授权窗口，点一下即可，**不需要把密码或 token 交给任何人**。
+
+下面的步骤是手工版，供参考或排查问题。
+
 ### 1. 建仓库（中性命名）
 
 仓库名建议保持中性，例如 `antigen-interactive-course`。描述不要写单位、姓名、比赛信息。
