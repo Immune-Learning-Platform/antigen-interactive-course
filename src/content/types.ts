@@ -147,6 +147,18 @@ export type VisualKey =
   | 'lfa-why-c'
   | 'quantum-dot'
   | 'strip-lab'
+  // —— 第8章 疫苗 ——
+  | 'vaccine-concept'
+  | 'vaccine-history'
+  | 'vaccine-types'
+  | 'vaccine-principle'
+  | 'primary-response'
+  | 'vaccine-effectors'
+  | 'secondary-response'
+  | 'vaccine-pipeline'
+  | 'vaccine-ai'
+  | 'vaccine-summary'
+  | 'vaccine-lab'
 
 export interface ModuleContent {
   id: string
@@ -415,4 +427,42 @@ export interface CourseConfig {
   outcomes: { title: string; body: string }[]
   /** 课程定位（教材类比） */
   positioning: { left: string; right: string; current?: boolean }[]
+}
+
+/* ------------------------------- 课程包 ------------------------------- */
+
+export interface GlossaryTerm {
+  term: string
+  en: string
+  def: string
+}
+
+/** 题目分组（各章节共用同一结构） */
+export interface QuestionGroups {
+  preClass: Question[]
+  module: Question[]
+  classroom: Question[]
+  homework: Question[]
+  postTest: Question[]
+}
+
+/**
+ * 一个课件（章节）的完整数据包。
+ * 页面组件只依赖这个接口，因此新增章节 = 新增一个数据包 + 在注册表登记一行。
+ */
+export interface CourseBundle {
+  course: CourseConfig
+  modules: ModuleContent[]
+  cases: TeachingCase[]
+  questions: Record<string, Question>
+  groups: QuestionGroups
+  homeworkTiers: HomeworkTier[]
+  assessment: AssessmentDimension[]
+  ideology: IdeologyPoint[]
+  frontier: FrontierItem[]
+  glossary: GlossaryTerm[]
+  /** 学习任务清单（可打卡） */
+  checklist: string[]
+  /** 该课程的“主流程页面”清单（用于进度统计）；缺省回退到全局 REQUIRED_PAGES */
+  requiredPages?: string[]
 }

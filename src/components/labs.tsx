@@ -9,6 +9,7 @@ import { createCytokineScene } from '../three/createCytokineScene'
 import { createSynapseScene } from '../three/createSynapseScene'
 import { createMastCellScene } from '../three/createMastCellScene'
 import { createStripScene } from '../three/createStripScene'
+import { createVaccineScene } from '../three/createVaccineScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -501,6 +502,45 @@ export function StripLab() {
           setActiveId(id)
         }}
         intro="模型包含：样品垫、结合垫（金垫）、NC 膜、T 线、C 线与吸水垫，以及流动方向箭头。请按液体流经顺序点一遍。"
+      />
+    </div>
+  )
+}
+
+
+/* ------------------------ 第8章：疫苗抗原成分实验室 ------------------------ */
+
+/** 疫苗三类抗原成分解剖台（第8章专属） */
+export function VaccineLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createVaccineScene}
+        title="疫苗抗原成分模型"
+        badge="三维模型 · 疫苗"
+        hint="拖动旋转 · 滚轮缩放 · 点击模型查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="三个并列模型：全病毒（传统疫苗）、病毒蛋白（亚单位疫苗）、病毒核酸（核酸疫苗）。对比它们的“抗原成分粗细”，理解安全性免疫原性的权衡。"
       />
     </div>
   )
