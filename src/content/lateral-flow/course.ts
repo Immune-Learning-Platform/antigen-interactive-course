@@ -93,6 +93,7 @@ export const lateralFlowCourse: CourseConfig = {
       summary: '先看清“路”：样品从样品垫进来，经金垫、NC 膜，最后被吸水垫吸走。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'strip',
         goals: [
           { id: 'pad', label: '找到样品垫' },
           { id: 'conjugate', label: '找到结合垫（金垫）' },

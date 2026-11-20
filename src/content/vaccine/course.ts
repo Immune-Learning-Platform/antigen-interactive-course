@@ -97,6 +97,7 @@ export const vaccineCourse: CourseConfig = {
       summary: '传统看“整个病原”，新型看“关键成分”——成分越精细，安全性越高，但免疫原性往往越弱。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'vaccine',
         goals: [
           { id: 'whole', label: '找到全病毒（传统疫苗抗原）' },
           { id: 'protein', label: '找到病毒蛋白（亚单位疫苗抗原）' },

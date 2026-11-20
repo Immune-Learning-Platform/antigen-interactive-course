@@ -91,6 +91,7 @@ export const antibodyCourse: CourseConfig = {
       summary: 'V 区管识别，C 区管效应——结构分工决定功能分工。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'igg',
         goals: [
           { id: 'heavy', label: '找到重链' },
           { id: 'light', label: '找到轻链' },

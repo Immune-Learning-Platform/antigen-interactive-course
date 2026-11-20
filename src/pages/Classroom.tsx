@@ -2,14 +2,23 @@ import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHeader, TaskCard } from '../components/learn'
 import { ScrollLink } from '../components/ScrollLink'
-import { StructureLab } from '../components/labs'
+import {
+  BoneMarrowLab,
+  CytokineSignalLab,
+  IgGStructureLab,
+  MastCellLab,
+  StructureLab,
+  StripLab,
+  SynapseLab,
+  VaccineLab,
+} from '../components/labs'
 import { QuestionCard } from '../components/quiz'
 import { BindingSimulator } from '../components/BindingSimulator'
 import { usePageVisit, useProgress } from '../components/progress'
 import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
 import { findQuestion, questionsOf } from '../content'
 import { useCourse } from '../course-context'
-import type { ClassroomTask, TaskInteraction } from '../content/types'
+import type { ClassroomTask, LabKey, TaskInteraction } from '../content/types'
 import type { CourseBundle } from '../content'
 
 /**
@@ -66,12 +75,44 @@ function MissingTask({ what }: { what: string }) {
   )
 }
 
-/** 结构识别任务：勾选目标即完成 */
+/**
+ * 三维实验室分发器
+ * ---------------------------------------------------------------
+ * 按内容层声明的 `lab` 渲染**本章自己的**三维模型。
+ * 这是修复的核心：此前所有章节都硬编码渲染第1章的细菌/病毒模型，
+ * 导致第2—8章的目标卡片（红骨髓、重链、TCR、样品垫…）与模型内容完全不对应。
+ */
+function LabByKey({ lab }: { lab: LabKey }) {
+  switch (lab) {
+    case 'pathogen':
+      return <StructureLab />
+    case 'bone-marrow':
+      return <BoneMarrowLab />
+    case 'igg':
+      return <IgGStructureLab />
+    case 'cytokine-signal':
+      return <CytokineSignalLab />
+    case 'immune-synapse':
+      return <SynapseLab />
+    case 'mast-cell':
+      return <MastCellLab />
+    case 'strip':
+      return <StripLab />
+    case 'vaccine':
+      return <VaccineLab />
+    default:
+      return null
+  }
+}
+
+/** 结构识别任务：操作本章三维模型 + 勾选目标即完成 */
 function StructureLabTask({
+  lab,
   goals,
   doneHint,
   onComplete,
 }: {
+  lab: LabKey
   goals: { id: string; label: string }[]
   doneHint?: string
   onComplete: () => void
@@ -79,7 +120,7 @@ function StructureLabTask({
   const [found, setFound] = useState<Record<string, boolean>>({})
   return (
     <>
-      <StructureLab />
+      <LabByKey lab={lab} />
       <div className="goals" role="group" aria-label="任务目标清单">
         {goals.map((g) => (
           <button
@@ -116,7 +157,14 @@ function TaskInteractionArea({
   const it: TaskInteraction = task.interaction
   switch (it.kind) {
     case 'structure-lab':
-      return <StructureLabTask goals={it.goals} doneHint={it.doneHint} onComplete={onComplete} />
+      return (
+        <StructureLabTask
+          lab={it.lab}
+          goals={it.goals}
+          doneHint={it.doneHint}
+          onComplete={onComplete}
+        />
+      )
     case 'binding-simulator':
       return <BindingSimulator />
     case 'question-set': {

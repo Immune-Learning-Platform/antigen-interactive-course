@@ -89,6 +89,7 @@ export const antigenCourse: CourseConfig = {
       summary: '“结构成分抗原”是细菌分型与疫苗设计的分子基础：同一株菌的不同零件，是不同抗体识别的对象。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'pathogen',
         goals: [
           { id: 'flagella', label: '找到“H 抗原”（鞭毛）' },
           { id: 'wall', label: '找到“O 抗原”（菌体 / 细胞壁）' },

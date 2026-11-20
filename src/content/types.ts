@@ -360,8 +360,39 @@ export interface PageCopyMap {
 }
 
 /** 课堂互动任务的“学生操作”载体类型 */
+/**
+ * 课堂互动可用的三维实验室标识
+ * ---------------------------------------------------------------
+ * 每个课件必须指定**本章自己的**三维模型。此前所有章节都回退到第1章的
+ * 细菌/病毒模型，导致“目标卡片让学生找红骨髓，模型上却是鞭毛和荚膜”，
+ * 交互失去教学意义。因此 lab 为必填字段。
+ */
+export type LabKey =
+  /** 第1章：细菌与有囊膜病毒结构成分抗原 */
+  | 'pathogen'
+  /** 第2章：骨髓腔结构（红/黄骨髓、血窦、HIM、HSC） */
+  | 'bone-marrow'
+  /** 第3章：IgG 结构（重/轻链、V/C 区、Fc、二硫键） */
+  | 'igg'
+  /** 第4章：细胞因子—受体—信号转导 */
+  | 'cytokine-signal'
+  /** 第5章：免疫突触（TCR、p-MHC、共刺激、细胞因子） */
+  | 'immune-synapse'
+  /** 第6章：致敏靶细胞（IgE、FcεRI、颗粒、变应原） */
+  | 'mast-cell'
+  /** 第7章：免疫层析试纸条结构 */
+  | 'strip'
+  /** 第8章：疫苗三类抗原成分（全病毒/蛋白/核酸） */
+  | 'vaccine'
+
 export type TaskInteraction =
-  | { kind: 'structure-lab'; goals: { id: string; label: string }[]; doneHint?: string }
+  | {
+      kind: 'structure-lab'
+      /** 本章对应的三维模型（必填，避免回退到其他章节） */
+      lab: LabKey
+      goals: { id: string; label: string }[]
+      doneHint?: string
+    }
   | { kind: 'question'; questionId: string; missingLabel?: string }
   | { kind: 'question-set'; questionIds: string[] }
   | { kind: 'binding-simulator' }

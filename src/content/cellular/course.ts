@@ -93,6 +93,7 @@ export const cellularCourse: CourseConfig = {
       summary: '识别分两步：先“黏上”（非特异、短暂），再“认准”（特异、稳定）——免疫突触就是两者共同的结果。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'immune-synapse',
         goals: [
           { id: 'tcr', label: '找到 TCR' },
           { id: 'pmhc', label: '找到 p-MHC 复合体' },

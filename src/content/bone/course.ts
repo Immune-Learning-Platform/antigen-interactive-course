@@ -89,6 +89,7 @@ export const boneCourse: CourseConfig = {
       summary: '先分清“在哪里”，才能理解“为什么在这里发生造血”。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'bone-marrow',
         goals: [
           { id: 'red', label: '找到红骨髓（造血场所）' },
           { id: 'yellow', label: '找到黄骨髓' },

@@ -90,6 +90,7 @@ export const hypersensitivityCourse: CourseConfig = {
       summary: '致敏 = IgE 已就位、细胞已装弹，但尚未触发。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'mast-cell',
         goals: [
           { id: 'ige', label: '找到 IgE 抗体' },
           { id: 'fceri', label: '找到 FcεRI 受体' },

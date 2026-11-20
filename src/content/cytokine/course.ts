@@ -90,6 +90,7 @@ export const cytokineCourse: CourseConfig = {
       summary: '细胞因子的工作方式是“信号”而非“执行”——它改变的是靶细胞的功能状态。',
       interaction: {
         kind: 'structure-lab',
+        lab: 'cytokine-signal',
         goals: [
           { id: 'ligand', label: '找到细胞因子（配体）' },
           { id: 'receptor', label: '找到细胞表面受体' },
