@@ -7,8 +7,10 @@ import { QuestionCard } from '../components/quiz'
 import { BindingSimulator } from '../components/BindingSimulator'
 import { usePageVisit, useProgress } from '../components/progress'
 import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
-import { activeCourse, findQuestion, questionsOf } from '../content'
+import { findQuestion, questionsOf } from '../content'
+import { useCourse } from '../course-context'
 import type { ClassroomTask, TaskInteraction } from '../content/types'
+import type { CourseBundle } from '../content'
 
 /**
  * 课堂互动页
@@ -104,9 +106,11 @@ function StructureLabTask({
 /** 按内容层声明的载体类型渲染“学生操作”区 */
 function TaskInteractionArea({
   task,
+  bundle,
   onComplete,
 }: {
   task: ClassroomTask
+  bundle: CourseBundle
   onComplete: () => void
 }): ReactNode {
   const it: TaskInteraction = task.interaction
@@ -116,7 +120,7 @@ function TaskInteractionArea({
     case 'binding-simulator':
       return <BindingSimulator />
     case 'question-set': {
-      const qs = questionsOf(it.questionIds)
+      const qs = questionsOf(it.questionIds, bundle)
       if (qs.length === 0) return <MissingTask what={it.questionIds.join('、')} />
       return (
         <div className="stack" style={{ gap: 14 }}>
@@ -127,7 +131,7 @@ function TaskInteractionArea({
       )
     }
     case 'question': {
-      const q = findQuestion(it.questionId)
+      const q = findQuestion(it.questionId, bundle)
       return q ? <QuestionCard q={q} group="classroom" /> : <MissingTask what={it.missingLabel ?? it.questionId} />
     }
     default:
@@ -136,9 +140,10 @@ function TaskInteractionArea({
 }
 
 export default function Classroom() {
+  const bundle = useCourse()
   usePageVisit('/classroom')
   const { state, recordAnswer } = useProgress()
-  const course = activeCourse.course
+  const course = bundle.course
   const copy = course.pageCopy.classroom
   const tasks = course.classroomTasks
 
@@ -195,6 +200,7 @@ export default function Classroom() {
               >
                 <TaskInteractionArea
                   task={task}
+                  bundle={bundle}
                   onComplete={() => recordAnswer(`task-${task.id}`, true, 'classroom', 'completed')}
                 />
               </TaskCard>
@@ -207,7 +213,7 @@ export default function Classroom() {
         <div className="container">
           <SectionHead eyebrow="课堂收束" title="从操作回到概念" />
           <ul className="takeaways">
-            {activeCourse.modules.flatMap((m) => m.takeaways.slice(0, 1)).map((t) => (
+            {bundle.modules.flatMap((m) => m.takeaways.slice(0, 1)).map((t) => (
               <li key={t}>{t}</li>
             ))}
           </ul>

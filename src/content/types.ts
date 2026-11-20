@@ -72,6 +72,7 @@ export interface ModuleSection {
 }
 
 export type VisualKey =
+  // —— 第1章 抗原 ——
   | 'two-properties'
   | 'concept-timeline'
   | 'epitope-lab'
@@ -82,6 +83,16 @@ export type VisualKey =
   | 'structure-lab'
   | 'recombinant-pipeline'
   | 'ai-structure'
+  // —— 第2章 骨髓 ——
+  | 'bone-structure'
+  | 'bone-timeline'
+  | 'stem-cell-relations'
+  | 'hematopoiesis-tree'
+  | 'lymphocyte-lineage'
+  | 'bone-dual-role'
+  | 'transplant-flow'
+  | 'msc-repair'
+  | 'organoid-frontier'
 
 export interface ModuleContent {
   id: string

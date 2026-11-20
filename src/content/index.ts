@@ -11,6 +11,18 @@ import {
   ideologyPoints,
   learningChecklist,
 } from './antigen/extras'
+import { boneCourse } from './bone/course'
+import { boneModules } from './bone/modules'
+import { boneQuestionBank, boneGroups } from './bone/questions'
+import {
+  boneAssessment,
+  boneCases,
+  boneChecklist,
+  boneFrontier,
+  boneGlossary,
+  boneHomework,
+  boneIdeology,
+} from './bone/extras'
 
 /**
  * 课程包（Course Bundle）
@@ -31,6 +43,8 @@ export interface CourseBundle {
   glossary: typeof antigenGlossary
   /** 学习任务清单（可打卡） */
   checklist: string[]
+  /** 该课程的“主流程页面”清单（用于进度统计）；缺省回退到全局 REQUIRED_PAGES */
+  requiredPages?: string[]
 }
 
 export const antigenBundle: CourseBundle = {
@@ -47,8 +61,38 @@ export const antigenBundle: CourseBundle = {
   checklist: learningChecklist,
 }
 
-/** 当前启用的课程（本次只交付第 1 个课件） */
-export const courses: CourseBundle[] = [antigenBundle]
+/** 第2章 免疫器官 · 骨髓 */
+export const boneBundle: CourseBundle = {
+  course: boneCourse,
+  modules: boneModules,
+  cases: boneCases,
+  questions: boneQuestionBank,
+  groups: boneGroups,
+  homeworkTiers: boneHomework,
+  assessment: boneAssessment,
+  ideology: boneIdeology,
+  frontier: boneFrontier,
+  glossary: boneGlossary,
+  checklist: boneChecklist,
+  requiredPages: [
+    '/course-02',
+    '/course-02/pre-class',
+    '/course-02/modules/m1',
+    '/course-02/modules/m2',
+    '/course-02/modules/m3',
+    '/course-02/classroom',
+    '/course-02/cases',
+    '/course-02/homework',
+  ],
+}
+
+/**
+ * 已交付的课程包
+ * courses[0] 恒为第1章（受保护基线，路由挂在站点根路径）；
+ * 第2—8章通过 /course-0X/* 路由 + CourseProvider 注入。
+ */
+export const courses: CourseBundle[] = [antigenBundle, boneBundle]
+/** 兼容旧代码：默认课程 = 第1章（行为与改造前一致） */
 export const activeCourse = courses[0]
 
 /** 学习进度统计口径：完成这些页面即视为“走完主流程” */
@@ -67,19 +111,22 @@ export const REQUIRED_PAGES = [
  * 查找函数一律基于 activeCourse，而不是写死某个课程包。
  * 否则“换一章只改内容”就不成立：页面会继续显示上一章的数据。
  */
-export function getModule(id: string | undefined): ModuleContent | undefined {
-  return activeCourse.modules.find((m) => m.id === id)
+export function getModule(
+  id: string | undefined,
+  bundle: CourseBundle = antigenBundle,
+): ModuleContent | undefined {
+  return bundle.modules.find((m) => m.id === id)
 }
 
-export function getQuestion(id: string): Question | undefined {
-  return activeCourse.questions[id]
+export function getQuestion(id: string, bundle: CourseBundle = antigenBundle): Question | undefined {
+  return bundle.questions[id]
 }
 
-export function questionsOf(ids: string[]): Question[] {
-  return ids.map((id) => activeCourse.questions[id]).filter(Boolean)
+export function questionsOf(ids: string[], bundle: CourseBundle = antigenBundle): Question[] {
+  return ids.map((id) => bundle.questions[id]).filter(Boolean)
 }
 
 /** 安全取题：缺题时返回 undefined，由页面决定如何降级，而不是渲染空白卡片 */
-export function findQuestion(id: string): Question | undefined {
-  return activeCourse.questions[id]
+export function findQuestion(id: string, bundle: CourseBundle = antigenBundle): Question | undefined {
+  return bundle.questions[id]
 }

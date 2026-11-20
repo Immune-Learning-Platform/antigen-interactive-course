@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/learn'
+import { useCourse } from '../course-context'
 import { usePageVisit } from '../components/progress'
 import { Callout, SectionHead, Tag } from '../components/ui'
-import { activeCourse } from '../content'
 
 const LEVEL_TONE = {
   课件原文: 'gold',
@@ -11,7 +11,8 @@ const LEVEL_TONE = {
 } as const
 
 export default function Frontier() {
-  const copy = activeCourse.course.pageCopy.frontier
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.frontier
   usePageVisit('/frontier')
 
   return (
@@ -33,7 +34,7 @@ export default function Frontier() {
       <section className="section section--tight">
         <div className="container">
           <div className="stack" style={{ gap: 18 }}>
-            {activeCourse.frontier.map((f) => (
+            {bundle.frontier.map((f) => (
               <article key={f.id} className="frontier">
                 <header>
                   <div className="row">

@@ -3,6 +3,7 @@ import { ModelViewer, type ViewerPart } from '../three/ModelViewer'
 import { createAntibodyScene } from '../three/createAntibodyScene'
 import { createBacteriumScene } from '../three/createBacteriumScene'
 import { createVirusScene } from '../three/createVirusScene'
+import { createBoneMarrowScene } from '../three/createBoneMarrowScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -263,6 +264,44 @@ export function AiStructureVisual() {
         <strong>{hit.label}：</strong>
         {hit.detail}
       </p>
+    </div>
+  )
+}
+
+/* ------------------------ 第2章：骨髓腔结构解剖台 ------------------------ */
+
+/** 骨髓腔结构解剖台（第2章专属，复用通用 ModelViewer 与 LabPanel） */
+export function BoneMarrowLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createBoneMarrowScene}
+        title="骨髓腔结构模型"
+        badge="三维模型 · 骨髓"
+        hint="拖动旋转 · 滚轮缩放 · 点击结构查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="模型包含：骨皮质与骨小梁、红骨髓、黄骨髓、血窦、造血微环境（HIM）与造血干细胞（HSC）。试试点选“造血微环境”查看它与 HSC 的关系。"
+      />
     </div>
   )
 }

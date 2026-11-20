@@ -30,6 +30,7 @@ export interface ProgressState {
   checklist: Record<string, boolean>
 }
 
+/** 第1章的默认存储键（保持不变，保证既有学习记录不丢） */
 const STORAGE_KEY = 'vei.antigen.progress.v1'
 
 const initialState: ProgressState = {
@@ -40,9 +41,9 @@ const initialState: ProgressState = {
   checklist: {},
 }
 
-function safeLoad(): ProgressState {
+function safeLoad(key: string = STORAGE_KEY): ProgressState {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(key)
     if (!raw) return initialState
     const parsed = JSON.parse(raw) as Partial<ProgressState>
     if (!parsed || parsed.version !== 1) return initialState
@@ -64,18 +65,25 @@ interface ProgressContextValue {
 
 const ProgressContext = createContext<ProgressContextValue | null>(null)
 
-export function ProgressProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<ProgressState>(() => safeLoad())
+export function ProgressProvider({
+  children,
+  storageKey = STORAGE_KEY,
+}: {
+  children: ReactNode
+  /** 多课程同域部署时用不同键，避免两章共用一份进度 */
+  storageKey?: string
+}) {
+  const [state, setState] = useState<ProgressState>(() => safeLoad(storageKey))
   const [storageAvailable, setStorageAvailable] = useState(true)
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+      localStorage.setItem(storageKey, JSON.stringify(state))
       setStorageAvailable(true)
     } catch {
       setStorageAvailable(false)
     }
-  }, [state])
+  }, [state, storageKey])
 
   const markVisited = useCallback((pageId: string) => {
     setState((prev) =>
@@ -107,11 +115,11 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   const reset = useCallback(() => {
     setState(initialState)
     try {
-      localStorage.removeItem(STORAGE_KEY)
+      localStorage.removeItem(storageKey)
     } catch {
       /* ignore */
     }
-  }, [])
+  }, [storageKey])
 
   const value = useMemo(
     () => ({ state, storageAvailable, markVisited, recordAnswer, setDraft, toggleCheck, reset }),

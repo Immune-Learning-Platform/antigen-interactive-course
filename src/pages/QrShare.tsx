@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import QRCode from 'qrcode'
 import { PageHeader } from '../components/learn'
+import { useCourse } from '../course-context'
 import { usePageVisit } from '../components/progress'
 import { Callout, SectionHead, Tag } from '../components/ui'
-import { activeCourse } from '../content'
 
 /**
  * 扫码学习页
@@ -12,20 +12,30 @@ import { activeCourse } from '../content'
  *   · 部署到正式地址后，二维码自动指向正确地方，不会出现“印着旧地址”的问题；
  *   · 如需可印刷的静态 PNG/SVG，运行 `npm run qr -- <正式网址>` 生成到 public/qr/。
  */
-function siteRootUrl() {
+/**
+ * 计算本章二维码应编码的地址
+ * ---------------------------------------------------------------
+ * 第1章：`https://<host>/<repo>/`（**不带 hash**）—— 与已印制的二维码完全一致，绝不能变；
+ * 第2—8章：`https://<host>/<repo>/#/course-0X` —— 指向本章首页。
+ */
+function chapterUrl(chapterRoot: string) {
   if (typeof window === 'undefined') return ''
   const { origin, pathname } = window.location
   const path = pathname.replace(/index\.html?$/, '').replace(/\/{2,}/g, '/')
-  return origin + path
+  const base = origin + path
+  // 根章节（第1章）保持原地址形式，避免已印二维码失效
+  return chapterRoot === '/' ? base : `${base}#${chapterRoot}`
 }
 
 export default function QrShare() {
+  const bundle = useCourse()
   usePageVisit('/qr')
   const [png, setPng] = useState('')
   const [svgUrl, setSvgUrl] = useState('')
   const [copied, setCopied] = useState(false)
-  const url = useMemo(() => siteRootUrl(), [])
-  const pageCopy = activeCourse.course.pageCopy.qr
+  const chapterRoot = bundle.course.nav.find((n) => n.id === 'home')?.to ?? '/'
+  const url = useMemo(() => chapterUrl(chapterRoot), [chapterRoot])
+  const pageCopy = bundle.course.pageCopy.qr
 
   useEffect(() => {
     let pngAlive = true

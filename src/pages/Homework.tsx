@@ -3,16 +3,18 @@ import { PageHeader } from '../components/learn'
 import { QuestionCard } from '../components/quiz'
 import { usePageVisit, useProgress } from '../components/progress'
 import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
-import { activeCourse, questionsOf } from '../content'
+import { questionsOf } from '../content'
+import { useCourse } from '../course-context'
 
 export default function Homework() {
-  const copy = activeCourse.course.pageCopy.homework
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.homework
   usePageVisit('/homework')
   const { state } = useProgress()
 
-  const allIds = activeCourse.homeworkTiers.flatMap((t) => t.questionIds)
+  const allIds = bundle.homeworkTiers.flatMap((t) => t.questionIds)
   const answered = allIds.filter((id) => state.answers[id] || state.drafts[id]).length
-  const objectiveIds = allIds.filter((id) => activeCourse.questions[id]?.type !== 'open')
+  const objectiveIds = allIds.filter((id) => bundle.questions[id]?.type !== 'open')
   const correct = objectiveIds.filter((id) => state.answers[id]?.correct).length
   const safeAll = Math.max(allIds.length, 1)
   const safeObj = Math.max(objectiveIds.length, 1)
@@ -65,7 +67,7 @@ export default function Homework() {
         </div>
       </section>
 
-      {activeCourse.homeworkTiers.map((tier) => (
+      {bundle.homeworkTiers.map((tier) => (
         <section key={tier.id} className="section section--tight" id={tier.id}>
           <div className="container">
             <SectionHead
@@ -79,7 +81,7 @@ export default function Homework() {
               </p>
             ) : null}
             <div className="stack" style={{ gap: 16 }}>
-              {questionsOf(tier.questionIds).map((q, i) => (
+              {questionsOf(tier.questionIds, bundle).map((q, i) => (
                 <QuestionCard
                   key={q.id}
                   q={q}

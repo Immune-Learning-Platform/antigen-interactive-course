@@ -5,7 +5,8 @@ import { ScrollLink } from '../components/ScrollLink'
 import { QuestionCard } from '../components/quiz'
 import { usePageVisit, useProgress, useStats } from '../components/progress'
 import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
-import { activeCourse, REQUIRED_PAGES } from '../content'
+import { REQUIRED_PAGES } from '../content'
+import { useCourse } from '../course-context'
 
 const GROUP_LABEL: Record<string, string> = {
   pre: '课前预习',
@@ -17,12 +18,13 @@ const GROUP_LABEL: Record<string, string> = {
 }
 
 export default function Assessment() {
-  const copy = activeCourse.course.pageCopy.assessment
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.assessment
   usePageVisit('/assessment')
   const { state, reset, storageAvailable, toggleCheck } = useProgress()
-  const stats = useStats(REQUIRED_PAGES)
+  const stats = useStats(bundle.requiredPages ?? REQUIRED_PAGES)
   const [confirming, setConfirming] = useState(false)
-  const postQuestions = activeCourse.groups.postTest
+  const postQuestions = bundle.groups.postTest
   const checked = state.checklist
 
   const pre = stats.byGroup.pre
@@ -64,7 +66,7 @@ export default function Assessment() {
                 </tr>
               </thead>
               <tbody>
-                {activeCourse.assessment.map((d) => (
+                {bundle.assessment.map((d) => (
                   <tr key={d.id}>
                     <td>
                       <strong>{d.title}</strong>
@@ -110,9 +112,9 @@ export default function Assessment() {
             <article className="card">
               <p className="metric__label">任务清单打卡</p>
               <p className="metric__value">
-                {stats.checkedCount} / {activeCourse.checklist.length}
+                {stats.checkedCount} / {bundle.checklist.length}
               </p>
-              <ProgressBar value={(stats.checkedCount / activeCourse.checklist.length) * 100} thin />
+              <ProgressBar value={(stats.checkedCount / bundle.checklist.length) * 100} thin />
             </article>
             <article className="card">
               <p className="metric__label">本地存储</p>
@@ -189,7 +191,7 @@ export default function Assessment() {
         <div className="container">
           <SectionHead eyebrow="学习任务清单" title="逐项打卡" intro="点击条目即可打勾，状态保存在本机浏览器。" />
           <ul className="checklist checklist--interactive">
-            {activeCourse.checklist.map((item, i) => {
+            {bundle.checklist.map((item, i) => {
               const id = `check-${i}`
               const on = Boolean(checked[id])
               return (

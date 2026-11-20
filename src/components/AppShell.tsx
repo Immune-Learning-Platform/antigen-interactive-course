@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { activeCourse, REQUIRED_PAGES } from '../content'
+import { REQUIRED_PAGES } from '../content'
+import { useCourse } from '../course-context'
 import { useStats } from './progress'
 import { ProgressBar } from './ui'
 
@@ -12,6 +13,7 @@ const PRIMARY = ['home', 'pre', 'modules', 'classroom', 'cases', 'homework']
 const UTILITY = ['assessment', 'ideology', 'frontier', 'qr']
 
 export function AppShell() {
+  const activeCourse = useCourse()
   const location = useLocation()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [moduleOpen, setModuleOpen] = useState(false)

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/learn'
+import { useCourse } from '../course-context'
 import { usePageVisit } from '../components/progress'
 import { Callout, SectionHead, Tag } from '../components/ui'
-import { activeCourse } from '../content'
 
 export default function Cases() {
-  const copy = activeCourse.course.pageCopy.cases
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.cases
   usePageVisit('/cases')
 
   return (
@@ -32,7 +33,7 @@ export default function Cases() {
           </Callout>
 
           <div className="stack" style={{ gap: 26, marginTop: 20 }}>
-            {activeCourse.cases.map((c, i) => (
+            {bundle.cases.map((c, i) => (
               <article key={c.id} id={c.id} className="casecard">
                 <header className="casecard__head">
                   <span className="num-pill">{i + 1}</span>
@@ -90,7 +91,7 @@ export default function Cases() {
                   <div className="row">
                     <span className="xs muted">关联模块：</span>
                     {c.moduleIds.map((id) => {
-                      const m = activeCourse.modules.find((x) => x.id === id)
+                      const m = bundle.modules.find((x) => x.id === id)
                       return m ? (
                         <Link key={id} className="tag tag--line" to={`/modules/${id}`}>
                           模块{m.no} {m.title}

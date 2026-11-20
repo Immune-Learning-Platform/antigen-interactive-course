@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/learn'
+import { useCourse } from '../course-context'
 import { usePageVisit, useProgress } from '../components/progress'
 import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
 import { useGlossary } from '../components/glossary'
-import { activeCourse } from '../content'
 
 export default function Modules() {
-  const copy = activeCourse.course.pageCopy.modules
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.modules
   usePageVisit('/modules')
   const { state } = useProgress()
-  const course = activeCourse.course
+  const course = bundle.course
   const glossary = useGlossary()
-  const doneCount = activeCourse.modules.filter((m) => state.visited[`/modules/${m.id}`]).length
+  const doneCount = bundle.modules.filter((m) => state.visited[`/modules/${m.id}`]).length
 
   return (
     <>
@@ -33,15 +34,15 @@ export default function Modules() {
         <div className="container">
           <div className="row row--between" style={{ marginBottom: 20 }}>
             <p className="muted small" style={{ margin: 0 }}>
-              已完成 {doneCount} / {activeCourse.modules.length} 个模块
+              已完成 {doneCount} / {bundle.modules.length} 个模块
             </p>
             <div style={{ minWidth: 240 }}>
-              <ProgressBar value={(doneCount / activeCourse.modules.length) * 100} thin />
+              <ProgressBar value={(doneCount / bundle.modules.length) * 100} thin />
             </div>
           </div>
 
           <div className="stack" style={{ gap: 20 }}>
-            {activeCourse.modules.map((m) => {
+            {bundle.modules.map((m) => {
               const visited = Boolean(state.visited[`/modules/${m.id}`])
               return (
                 <article key={m.id} className="card card--hover modulecard">

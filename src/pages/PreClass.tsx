@@ -6,15 +6,17 @@ import { QuestionCard } from '../components/quiz'
 import { usePageVisit, useProgress } from '../components/progress'
 import { Callout, ProgressBar, Reveal, SectionHead, Tag } from '../components/ui'
 import { useGlossary } from '../components/glossary'
-import { activeCourse, questionsOf } from '../content'
+import { questionsOf } from '../content'
+import { useCourse } from '../course-context'
 
 export default function PreClass() {
-  const copy = activeCourse.course.pageCopy.preClass
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.preClass
   usePageVisit('/pre-class')
-  const course = activeCourse.course
+  const course = bundle.course
   const { state } = useProgress()
   const glossary = useGlossary()
-  const tasks = questionsOf(course.preClass.taskIds)
+  const tasks = questionsOf(course.preClass.taskIds, bundle)
   const answered = tasks.filter((t) => state.answers[t.id]).length
   const correct = tasks.filter((t) => state.answers[t.id]?.correct).length
   const objectiveCount = tasks.filter((t) => t.type !== 'open').length

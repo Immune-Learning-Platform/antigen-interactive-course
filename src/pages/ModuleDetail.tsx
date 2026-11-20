@@ -7,19 +7,21 @@ import { QuestionCard } from '../components/quiz'
 import { usePageVisit } from '../components/progress'
 import { Callout, Reveal, SectionHead, SupplementNote, Tag } from '../components/ui'
 import { Term } from '../components/glossary'
-import { activeCourse, getModule, questionsOf } from '../content'
+import { getModule, questionsOf } from '../content'
+import { useCourse } from '../course-context'
 import NotFound from './NotFound'
 
 export default function ModuleDetail() {
+  const bundle = useCourse()
   const { moduleId } = useParams()
-  const mod = getModule(moduleId)
-  const index = activeCourse.modules.findIndex((m) => m.id === moduleId)
+  const mod = getModule(moduleId, bundle)
+  const index = bundle.modules.findIndex((m) => m.id === moduleId)
   usePageVisit(`/modules/${moduleId ?? ''}`)
 
   if (!mod) return <NotFound />
 
-  const prev = index > 0 ? activeCourse.modules[index - 1] : null
-  const next = index < activeCourse.modules.length - 1 ? activeCourse.modules[index + 1] : null
+  const prev = index > 0 ? bundle.modules[index - 1] : null
+  const next = index < bundle.modules.length - 1 ? bundle.modules[index + 1] : null
 
   return (
     <>
@@ -123,7 +125,7 @@ export default function ModuleDetail() {
                 <h3 className="moduleSection__quizTitle">
                   随堂小测 <span className="xs muted">（即时判定 + 解析 + 回链复习）</span>
                 </h3>
-                {questionsOf(s.quizIds).map((q, qi) => (
+                {questionsOf(s.quizIds, bundle).map((q, qi) => (
                   <QuestionCard key={q.id} q={q} group="module" index={qi} total={s.quizIds!.length} compact />
                 ))}
               </div>

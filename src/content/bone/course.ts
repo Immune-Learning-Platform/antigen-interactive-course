@@ -1,0 +1,394 @@
+import type { CourseConfig } from '../types'
+
+/**
+ * 第2章 免疫器官 · 骨髓（节选第1节）
+ * 依据：`2.骨骼.pptx`（15 页）逐页重构。
+ * 原则：课件原文优先；超纲概念以 supplement + 可核验来源标注。
+ */
+export const boneCourse: CourseConfig = {
+  id: 'bone',
+  chapter: '第二章第一节',
+  title: '免疫器官 · 骨髓',
+  en: 'Bone Marrow',
+  tagline: '骨骼支撑运动，骨髓孕育免疫',
+  lead:
+    '骨骼是机体的运动器官，而蕴藏其中的骨髓则是重要的免疫器官。本节回答三个问题：骨髓由什么组成？它在免疫系统中承担哪些功能？这些功能又如何转化为临床治疗手段。',
+  stats: [
+    { value: '3', label: '知识模块' },
+    { value: '6', label: '课堂互动任务' },
+    { value: '2', label: '可交互三维模型' },
+    { value: '15′', label: '课前建议用时' },
+  ],
+  keywords: ['红骨髓', '黄骨髓', 'HIM', 'HSC', 'MSC', '中枢免疫器官', '外周免疫器官'],
+  pageCopy: {
+    preClass: {
+      eyebrow: '课前学习 · 学习任务驱动型预习',
+      title: '从一块骨头说起',
+      en: 'Pre-class',
+      lead: '先看一个骨与免疫的真实关联，再读 6 张知识卡。答完立刻能看到对错与解析——不必一次记牢，把没想通的问题带进课堂就好。',
+    },
+    modules: {
+      eyebrow: '模块学习 · 三个知识模块',
+      title: '按课件三条主线，逐层深入',
+      en: 'Modules',
+      lead: '模块一是定义（骨髓由什么组成），模块二是难点（三项功能与双重身份），模块三是重点（造血干细胞移植、MSC 与类器官）。',
+    },
+    classroom: {
+      eyebrow: '课堂互动 · 现场可操作',
+      title: '六个任务，把“看不见的骨髓”变成可操作的对象',
+      en: 'Classroom interaction',
+      lead: '每个任务都按“任务情境 → 学生操作 → 结果反馈 → 机制解释 → 知识总结”组织。建议课堂分组完成，完成后向全班讲解机制。',
+    },
+    cases: {
+      eyebrow: '案例教学 · 真实问题驱动',
+      title: '三个问题，三种“用得上”的骨髓知识',
+      en: 'Case studies',
+      lead: '案例统一按“真实问题 → 科学分析 → 知识应用 → 结果反馈”四段呈现，并标注依据来源与真实性声明——不虚构病例。',
+    },
+    homework: {
+      eyebrow: '课后作业 · 分层任务',
+      title: '基础 / 提升 / 拓展：按需完成任务',
+      en: 'Homework',
+      lead: '客观题即时判分并给出解析，可反复练习；开放题请先写再看参考思路，草稿保存在本机浏览器。',
+    },
+    assessment: {
+      eyebrow: '学习评价 · 形成性评价',
+      title: '看清自己学到了哪一步',
+      en: 'Assessment',
+      lead: '评价由四部分组成：知识掌握、任务完成、互动练习、前后测对照。除课堂与作业记录由教师掌握外，本页数据全部来自本机浏览器。',
+    },
+    ideology: {
+      eyebrow: '课程思政 · 价值引领',
+      title: '四个融入点：从造血干细胞到职业责任',
+      en: 'Value education',
+      lead: '思政从知识点本身长出来：造血重建连着救死扶伤，“北京方案”连着自主创新，干细胞产业连着规范与责任。',
+    },
+    frontier: {
+      eyebrow: '学科前沿 · 研究进展',
+      title: '从细胞移植到骨类器官',
+      en: 'Frontiers',
+      lead: '本页严格区分三类内容：课件原文、由课件延伸的常规做法、以及标注来源的补充阅读。凡非课件原文，均给出可核验来源。',
+    },
+    qr: {
+      eyebrow: '扫码学习 · 手机端入口',
+      title: '用手机扫描本章二维码',
+      en: 'QR access',
+      lead: '二维码指向本章的固定地址。同一个二维码可长期复用：只要站点地址不变，重新部署内容后二维码依然有效。',
+    },
+  },
+  classroomTasks: [
+    {
+      id: 't1',
+      title: '骨髓腔结构识别（三维）',
+      scenario:
+        '实验室给你一个骨髓腔剖面。请上台操作三维模型，指出红骨髓、黄骨髓、血窦与造血微环境的位置，并说明各自的作用。',
+      mechanism: [
+        '骨髓是**骨髓腔和松质骨骨小梁间隙内的软组织**，包括**黄骨髓**和**红骨髓**。',
+        '**红骨髓**是血细胞生产的重要场所，含造血干细胞、间充质干细胞等；造血组织与**血窦**共同构成造血的空间结构。',
+      ],
+      summary: '先分清“在哪里”，才能理解“为什么在这里发生造血”。',
+      interaction: {
+        kind: 'structure-lab',
+        goals: [
+          { id: 'red', label: '找到红骨髓（造血场所）' },
+          { id: 'yellow', label: '找到黄骨髓' },
+          { id: 'sinus', label: '找到血窦' },
+          { id: 'niche', label: '找到造血微环境（HIM）' },
+        ],
+        doneHint: '找到全部 4 项目标后，本任务自动记为完成。若三维不可用，可直接在右侧结构清单中点击查看（内容一致）。',
+      },
+    },
+    {
+      id: 't2',
+      title: '造血谱系分叉：B 细胞与 NK 细胞从哪来？',
+      scenario:
+        '把“造血干细胞”放在分叉起点，然后分别追踪 B 细胞与 NK 细胞两条发育路径，说出每一步的名称与顺序。',
+      mechanism: [
+        '**B 细胞路径**：造血干细胞 → 淋巴样前体细胞 → 祖B细胞 → 前B细胞 → 未成熟B细胞 → 成熟B细胞。',
+        '**NK 细胞路径**：造血干细胞 → 共同淋巴祖细胞 → NK细胞祖细胞 → 未成熟NK细胞 → 成熟NK细胞。',
+        '两条路径同源于造血干细胞，分叉后各走一条线——这正是“骨髓是 B 细胞和 NK 细胞分化、成熟场所”的具体含义。',
+      ],
+      summary: '同源分叉：一条 HSC，两条淋巴系路径，终点都是“成熟”。',
+      interaction: { kind: 'question', questionId: 'c02-t2', missingLabel: 'c02-t2（造血谱系排序题）' },
+    },
+    {
+      id: 't3',
+      title: '三项功能归类',
+      scenario: '给你 6 条描述，判断它属于骨髓的哪一项功能：造血发生、淋巴细胞成熟，还是抗体来源。',
+      mechanism: [
+        '**功能一**：骨髓是各类血细胞和免疫细胞**发生、发育**的场所。',
+        '**功能二**：骨髓是 **B 细胞和 NK 细胞分化、成熟**的场所。',
+        '**功能三**：骨髓是**血清抗体的主要来源**——记忆性B细胞再次活化后迁移至骨髓，分化为成熟浆细胞，持续分泌抗体。',
+      ],
+      summary: '三项功能不是并列的三句话，而是一条链：造血 → 免疫细胞成熟 → 抗体持续供应。',
+      interaction: { kind: 'question', questionId: 'c02-t3', missingLabel: 'c02-t3（功能归类题）' },
+    },
+    {
+      id: 't4',
+      title: 'HIM / HSC / MSC 概念辨析',
+      scenario: '三个缩写在课件里同时出现，很容易混。请把“土壤”“种子”“支持与修复者”三个比喻分别对上号，并说明理由。',
+      mechanism: [
+        '**HIM（造血诱导微环境）**：骨髓中支持和调控造血细胞生存、增殖与分化的**局部环境**——相当于“土壤”。',
+        '**HSC（造血干细胞）**：高度自我更新能力和分化潜能，是体内所有血细胞的**共同祖先**——相当于“种子”。',
+        '**MSC（间充质干细胞）**：自我更新和多向分化潜能，可向成骨、成软骨及成脂肪细胞分化——负责支持与修复。',
+      ],
+      summary: 'HIM 是环境，HSC 是源头，MSC 是支持与修复者；三者共同构成骨髓免疫功能的基础。',
+      interaction: { kind: 'question-set', questionIds: ['c02-t4', 'c02-q1'] },
+    },
+    {
+      id: 't5',
+      title: '双重身份判断',
+      scenario:
+        '有人说“骨髓只是中枢免疫器官”。请判断这句话是否正确，并用一句话说明骨髓为什么同时具备外周免疫器官功能。',
+      mechanism: [
+        '课件结论：**骨髓既是中枢免疫器官又是外周免疫器官**。',
+        '原因在于**长寿命浆细胞在骨髓定居**：记忆性B细胞再次活化后迁移至骨髓，分化为成熟浆细胞并持续分泌抗体——这就是“外周”功能的具体落点。',
+      ],
+      summary: '中枢：免疫细胞发生与成熟；外周：抗体持续产生。一个器官，两重身份。',
+      interaction: { kind: 'question', questionId: 'c02-t5', missingLabel: 'c02-t5（双重身份判断题）' },
+    },
+    {
+      id: 't6',
+      title: '临床应用情境决策',
+      scenario:
+        '一例犬 B 细胞淋巴瘤经化疗获得缓解，主人询问“还有没有办法进一步治疗”。作为兽医，请判断哪些思路有依据，并排出优先顺序。',
+      mechanism: [
+        '**造血干细胞移植**：课件指出其已应用于犬淋巴瘤治疗，为**重建造血与免疫功能**提供临床实践依据。',
+        '**MSC 参与炎症修复**：骨髓来源间充质基质细胞参与炎症调节并支持组织修复。',
+        '**风险与前提**：移植需要供体匹配、移植前处理与移植后监测；不是所有病例都适用。判断顺序应为“适应证 → 供体 → 风险收益 → 主人意愿”。',
+      ],
+      summary: '技术可行 ≠ 临床适用；先分适应证与风险，再谈方案。',
+      interaction: { kind: 'question', questionId: 'c02-t6', missingLabel: 'c02-t6（临床情境决策题）' },
+    },
+  ],
+  objectives: {
+    knowledge: [
+      '能说出骨髓的定义与组成（红骨髓、黄骨髓）。',
+      '能解释 HIM、HSC、MSC 三个概念及其免疫功能。',
+      '能列举骨髓的三项免疫功能，并说明它们之间的递进关系。',
+      '能说明“骨髓既是中枢免疫器官又是外周免疫器官”的依据。',
+    ],
+    ability: [
+      '能借助三维模型讲清骨髓腔的空间结构。',
+      '能画出 B 细胞与 NK 细胞两条发育路径。',
+      '能分析造血干细胞移植与 MSC 治疗的免疫学原理。',
+    ],
+    value: [
+      '体会造血干细胞移植对挽救生命的意义。',
+      '认同干细胞研究与临床应用中的规范与伦理要求。',
+      '建立用免疫学知识服务动物健康与产业发展的职业认同。',
+    ],
+    standard: '随堂小测与课堂互动正确率 ≥ 80%，并完成 1 次临床情境表述',
+  },
+  keyPoints: ['骨髓的组成与三项免疫功能', '造血干细胞移植与 MSC 临床应用'],
+  hardPoints: [
+    '造血干细胞分叉为 B 细胞与 NK 细胞两条发育路径的具体阶段',
+    '“骨髓既是中枢免疫器官又是外周免疫器官”的机制解释',
+    'HIM / HSC / MSC 三者的区别与联系',
+  ],
+  nav: [
+    { id: 'home', label: '首页', to: '/course-02', desc: '本章主题、学习路径与全部入口' },
+    { id: 'pre', label: '课前学习', to: '/course-02/pre-class', desc: '情境导入 · 三维目标 · 预习任务' },
+    {
+      id: 'modules',
+      label: '模块学习',
+      to: '/course-02/modules',
+      desc: '三个知识模块的正文与可视化',
+      children: [
+        { label: '模块一 定义与组成', to: '/course-02/modules/m1' },
+        { label: '模块二 骨髓的功能', to: '/course-02/modules/m2' },
+        { label: '模块三 临床应用', to: '/course-02/modules/m3' },
+      ],
+    },
+    { id: 'classroom', label: '课堂互动', to: '/course-02/classroom', desc: '六个互动任务的现场操作' },
+    { id: 'cases', label: '案例教学', to: '/course-02/cases', desc: '真实问题驱动的三个案例' },
+    { id: 'homework', label: '课后作业', to: '/course-02/homework', desc: '基础 / 提升 / 拓展三层任务' },
+    { id: 'assessment', label: '学习评价', to: '/course-02/assessment', desc: '形成性评价与前后测对照' },
+    { id: 'ideology', label: '课程思政', to: '/course-02/ideology', desc: '四个价值融入点' },
+    { id: 'frontier', label: '学科前沿', to: '/course-02/frontier', desc: '骨类器官与细胞治疗进展' },
+    { id: 'qr', label: '扫码学习', to: '/course-02/qr', desc: '本章固定网址二维码' },
+  ],
+  pathway: [
+    {
+      id: 'p0',
+      stage: '课前',
+      title: '带问题进课堂',
+      detail: '看 1 个骨与免疫的关联情境、读 6 张知识卡、做 4 道预习任务（即时反馈）。',
+      to: '/course-02/pre-class',
+      minutes: 15,
+    },
+    {
+      id: 'p1',
+      stage: '课中',
+      title: '模块一：定义与组成',
+      detail: '红骨髓与黄骨髓、HIM 造血诱导微环境、HSC 与 MSC。',
+      to: '/course-02/modules/m1',
+      minutes: 15,
+    },
+    {
+      id: 'p2',
+      stage: '课中',
+      title: '模块二：骨髓的功能（难点）',
+      detail: '造血发生 → B/NK 成熟 → 抗体来源 → 中枢兼外周的双重身份。',
+      to: '/course-02/modules/m2',
+      minutes: 25,
+    },
+    {
+      id: 'p3',
+      stage: '课中',
+      title: '模块三：临床应用（重点）',
+      detail: '造血干细胞移植、MSC 参与炎症修复、MSC 与骨类器官。',
+      to: '/course-02/modules/m3',
+      minutes: 20,
+    },
+    {
+      id: 'p4',
+      stage: '课中',
+      title: '课堂互动',
+      detail: '结构识别、谱系排序、功能归类、概念辨析、双重身份判断、临床决策。',
+      to: '/course-02/classroom',
+      minutes: 15,
+    },
+    {
+      id: 'p5',
+      stage: '课后',
+      title: '作业与评价',
+      detail: '三层作业 + 学习评价，对照课前—课后测验结果。',
+      to: '/course-02/homework',
+      minutes: 25,
+    },
+  ],
+  graph: {
+    nodes: [
+      { id: 'root', label: '骨髓', en: 'Bone marrow', level: 1, to: '/course-02' },
+      { id: 'm1', label: '定义与组成', en: 'Composition', level: 2, to: '/course-02/modules/m1' },
+      { id: 'm2', label: '骨髓的功能', en: 'Functions', level: 2, to: '/course-02/modules/m2', flag: '难点' },
+      { id: 'm3', label: '临床应用', en: 'Clinical use', level: 2, to: '/course-02/modules/m3', flag: '重点' },
+      { id: 'g1', label: '红骨髓', level: 3, to: '/course-02/modules/m1' },
+      { id: 'g2', label: '黄骨髓', level: 3, to: '/course-02/modules/m1' },
+      { id: 'g3', label: 'HIM 造血微环境', level: 3, to: '/course-02/modules/m1' },
+      { id: 'g4', label: 'HSC 造血干细胞', level: 3, to: '/course-02/modules/m1' },
+      { id: 'g5', label: 'MSC 间充质干细胞', level: 3, to: '/course-02/modules/m1' },
+      { id: 'g6', label: '血细胞发生场所', level: 3, to: '/course-02/modules/m2' },
+      { id: 'g7', label: 'B / NK 细胞成熟', level: 3, to: '/course-02/modules/m2' },
+      { id: 'g8', label: '血清抗体来源', level: 3, to: '/course-02/modules/m2' },
+      { id: 'g9', label: '中枢 + 外周', level: 3, to: '/course-02/modules/m2' },
+      { id: 'g10', label: '造血干细胞移植', level: 3, to: '/course-02/modules/m3' },
+      { id: 'g11', label: 'MSC 炎症修复', level: 3, to: '/course-02/modules/m3' },
+      { id: 'g12', label: '骨类器官', level: 3, to: '/course-02/modules/m3' },
+    ],
+    links: [
+      ['root', 'm1'],
+      ['root', 'm2'],
+      ['root', 'm3'],
+      ['m1', 'g1'],
+      ['m1', 'g2'],
+      ['m1', 'g3'],
+      ['m1', 'g4'],
+      ['m1', 'g5'],
+      ['m2', 'g6'],
+      ['m2', 'g7'],
+      ['m2', 'g8'],
+      ['m2', 'g9'],
+      ['m3', 'g10'],
+      ['m3', 'g11'],
+      ['m3', 'g12'],
+    ],
+  },
+  preClass: {
+    scenario: {
+      title: '一匹赛马的后肢骨折，为什么兽医还要评估它的免疫状态？',
+      en: 'Field scenario',
+      body: [
+        '一匹赛马在后肢骨折后被送来救治。影像学可以说明骨折的位置和程度，但主治兽医还安排了血常规与免疫相关评估。',
+        '骨折是“运动系统”的问题，而免疫评估关注的是“造血与防御”的源头——骨髓。骨骼与骨髓，一个支撑运动，一个孕育免疫。',
+      ],
+      questions: [
+        '骨髓到底长在哪里？红骨髓和黄骨髓有什么区别？',
+        '为什么说骨髓既是中枢免疫器官，又是外周免疫器官？',
+        '造血干细胞移植为什么能同时重建造血与免疫功能？',
+      ],
+      visual: 'concept-timeline',
+    },
+    taskIds: ['c02-pre1', 'c02-pre2', 'c02-pre3', 'c02-pre4'],
+    cards: [
+      {
+        title: '骨髓',
+        en: 'Bone marrow',
+        body: '骨髓腔和松质骨骨小梁间隙内的软组织，包括黄骨髓和红骨髓。红骨髓是血细胞生产的重要场所。',
+        tags: ['课件定义', '核心概念'],
+      },
+      {
+        title: 'HIM 造血诱导微环境',
+        en: 'Haematopoietic inductive microenvironment',
+        body: '骨髓中支持和调控造血细胞生存、增殖与分化的局部环境——可以理解为造血发生的“土壤”。',
+        tags: ['课件定义'],
+      },
+      {
+        title: 'HSC 造血干细胞',
+        en: 'Haematopoietic stem cell',
+        body: '具有高度自我更新能力和分化潜能，是体内所有血细胞的共同祖先——“种子”。',
+        tags: ['课件定义'],
+      },
+      {
+        title: 'MSC 间充质干细胞',
+        en: 'Mesenchymal stem cell',
+        body: '具有自我更新和多向分化潜能，可向成骨、成软骨及成脂肪细胞分化，参与支持与修复。',
+        tags: ['课件定义'],
+      },
+      {
+        title: '中枢免疫器官 / 外周免疫器官',
+        en: 'Central / Peripheral lymphoid organ',
+        body: '免疫细胞发生、发育与成熟的场所为中枢免疫器官；免疫应答发生的场所为外周免疫器官。骨髓兼具两者功能。',
+        tags: ['概念框架'],
+      },
+      {
+        title: '造血干细胞移植',
+        en: 'HSCT',
+        body: '通过移植造血干细胞重建受体的造血与免疫功能，已应用于犬淋巴瘤等疾病的治疗实践。',
+        tags: ['临床应用'],
+      },
+    ],
+    prior: [
+      {
+        subject: '动物解剖学',
+        text: '骨髓腔与松质骨骨小梁的位置关系，是理解造血微环境空间结构的基础。',
+      },
+      {
+        subject: '动物组织学',
+        text: '造血组织与血窦的组织学结构，解释了血细胞如何进入血液循环。',
+      },
+      {
+        subject: '后续章节',
+        text: '本章讲“免疫细胞从哪里来”，第三章免疫细胞、第八章适应性免疫应答都要用到这里的谱系知识。',
+      },
+    ],
+  },
+  outcomes: [
+    {
+      title: '说清一个器官的双重身份',
+      body: '用“长寿命浆细胞定居骨髓”这一事实，解释骨髓为什么既是中枢免疫器官又是外周免疫器官。',
+    },
+    {
+      title: '画出两条发育路径',
+      body: '不看资料，画出造血干细胞分化为成熟 B 细胞与成熟 NK 细胞的完整阶段。',
+    },
+    {
+      title: '判断一项技术是否适用',
+      body: '面对一个具体病例，能从适应证、供体、风险收益三个角度判断造血干细胞移植是否可行。',
+    },
+  ],
+  positioning: [
+    { left: '第一章 抗原', right: '敌方武装力量' },
+    { left: '第二章 免疫系统', right: '国家的国防体系', current: true },
+    { left: '第三章 免疫细胞', right: '国防体系各兵种士兵' },
+    { left: '第四章 抗体', right: '精准制导导弹' },
+    { left: '第五章 细胞因子', right: '战斗信号' },
+    { left: '第六章 补体系统', right: '智能地雷' },
+    { left: '第七章 先天性免疫应答', right: '边防武警部队' },
+    { left: '第八章 适应性免疫应答', right: '特种作战部队' },
+    { left: '第九章 超敏反应', right: '友军误击 / 过度火力覆盖' },
+    { left: '第十章 免疫学技术', right: '敌情侦察与情报分析' },
+    { left: '第十一章 疫苗与免疫预防', right: '新兵军事演习与战前推演' },
+  ],
+}

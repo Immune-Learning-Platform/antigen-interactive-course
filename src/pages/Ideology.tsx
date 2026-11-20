@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/learn'
+import { useCourse } from '../course-context'
 import { usePageVisit } from '../components/progress'
 import { Callout, SectionHead, Tag } from '../components/ui'
-import { activeCourse } from '../content'
 
 export default function Ideology() {
-  const copy = activeCourse.course.pageCopy.ideology
+  const bundle = useCourse()
+  const copy = bundle.course.pageCopy.ideology
   usePageVisit('/ideology')
 
   return (
@@ -27,7 +28,7 @@ export default function Ideology() {
       <section className="section section--tight">
         <div className="container">
           <div className="stack" style={{ gap: 20 }}>
-            {activeCourse.ideology.map((p, i) => (
+            {bundle.ideology.map((p, i) => (
               <article key={p.id} className="ideology">
                 <header>
                   <span className="num-pill">{i + 1}</span>

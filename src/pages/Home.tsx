@@ -5,12 +5,14 @@ import { KnowledgeGraph, PathTimeline } from '../components/learn'
 import { EpitopeTypesVisual } from '../components/visuals'
 import { usePageVisit, useStats } from '../components/progress'
 import { ProgressBar, Reveal, SectionHead, Tag } from '../components/ui'
-import { activeCourse, REQUIRED_PAGES } from '../content'
+import { REQUIRED_PAGES } from '../content'
+import { useCourse } from '../course-context'
 
 export default function Home() {
+  const bundle = useCourse()
   usePageVisit('/')
-  const stats = useStats(REQUIRED_PAGES)
-  const course = activeCourse.course
+  const stats = useStats(bundle.requiredPages ?? REQUIRED_PAGES)
+  const course = bundle.course
   const tasks = [
     { id: 't1', title: '病原体结构抗原识别', desc: '在三维细菌/病毒上点选结构并说出抗原代号' },
     { id: 't2', title: '表位分类', desc: '把 6 条描述分入线性表位 / 构象表位两栏' },
@@ -99,7 +101,7 @@ export default function Home() {
             <KnowledgeGraph graph={course.graph} />
           </Reveal>
           <div className="grid grid--3" style={{ marginTop: 24 }}>
-            {activeCourse.modules.map((m) => (
+            {bundle.modules.map((m) => (
               <article key={m.id} className="card card--hover">
                 <div className="row row--between">
                   <span className="card__kicker">模块 {m.no}</span>
@@ -189,7 +191,7 @@ export default function Home() {
                 intro="每个案例都按“真实问题 → 科学分析 → 知识应用 → 结果反馈”四段展开，并标注依据来源。"
               />
               <ul className="entrylist">
-                {activeCourse.cases.map((c, i) => (
+                {bundle.cases.map((c, i) => (
                   <li key={c.id}>
                     <Link to={`/cases#${c.id}`} className="entrylist__item">
                       <span className="num-pill num-pill--ghost">{i + 1}</span>
