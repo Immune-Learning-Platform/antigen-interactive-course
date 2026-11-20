@@ -124,6 +124,18 @@ export type VisualKey =
   | 'cellular-applications'
   | 'dth-dual'
   | 'cart-flow'
+  // —— 第6章 I型超敏反应 ——
+  | 'hypersensitivity-elements'
+  | 'hypersensitivity-features'
+  | 'hypersensitivity-timeline'
+  | 'ige-production'
+  | 'sensitization-trigger'
+  | 'mast-cell-lab'
+  | 'mediator-effects'
+  | 'ige-dual-role'
+  | 'management-strategies'
+  | 'desensitization'
+  | 'targeted-therapy'
 
 export interface ModuleContent {
   id: string

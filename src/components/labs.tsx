@@ -7,6 +7,7 @@ import { createBoneMarrowScene } from '../three/createBoneMarrowScene'
 import { createIgGScene } from '../three/createIgGScene'
 import { createCytokineScene } from '../three/createCytokineScene'
 import { createSynapseScene } from '../three/createSynapseScene'
+import { createMastCellScene } from '../three/createMastCellScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -421,6 +422,45 @@ export function SynapseLab() {
           setActiveId(id)
         }}
         intro="模型包含：APC 与 T 细胞、p-MHC、TCR、共刺激分子、黏附分子与细胞因子。请按“黏附 → TCR 识别 → 共刺激 → 细胞因子”的顺序点一遍，对应三个信号。"
+      />
+    </div>
+  )
+}
+
+
+/* ------------------------ 第6章：致敏靶细胞实验室 ------------------------ */
+
+/** 致敏肥大细胞解剖台（第6章专属） */
+export function MastCellLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createMastCellScene}
+        title="致敏靶细胞模型"
+        badge="三维模型 · 致敏靶细胞"
+        hint="拖动旋转 · 滚轮缩放 · 点击结构查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="模型包含：细胞膜、FcεRI 受体、IgE（Fc 段已结合受体、Fab 段朝外）、胞内颗粒、变应原与已释放介质。请按“IgE → 受体 → 颗粒 → 变应原”的顺序点一遍。"
       />
     </div>
   )

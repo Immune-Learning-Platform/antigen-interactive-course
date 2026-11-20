@@ -4,7 +4,7 @@ import { AppShell } from './components/AppShell'
 import { GlossaryProvider } from './components/glossary'
 import { ProgressProvider } from './components/progress'
 import { CourseProvider } from './course-context'
-import { activeCourse, antibodyBundle, boneBundle, cellularBundle, cytokineBundle, type CourseBundle } from './content'
+import { activeCourse, antibodyBundle, boneBundle, cellularBundle, cytokineBundle, hypersensitivityBundle, type CourseBundle } from './content'
 import Home from './pages/Home'
 import PreClass from './pages/PreClass'
 import Modules from './pages/Modules'
@@ -117,6 +117,18 @@ export default function App() {
           path="course-05"
           element={
             <Chapter bundle={cellularBundle}>
+              <AppShell />
+            </Chapter>
+          }
+        >
+          {courseRoutes()}
+        </Route>
+
+        {/* ---------- 第6章 I型超敏反应 ---------- */}
+        <Route
+          path="course-06"
+          element={
+            <Chapter bundle={hypersensitivityBundle}>
               <AppShell />
             </Chapter>
           }
