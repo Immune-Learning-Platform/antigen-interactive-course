@@ -24,6 +24,9 @@ npm run preview      # 预览构建产物
 npm run typecheck                     # 仅类型检查
 npm run preview:test                  # 在 4321 端口预览（供 e2e 使用）
 npm run e2e                           # 冒烟验收（需先启动 preview:test）
+node scripts/check-links.mjs          # 站内链接与锚点巡检
+node scripts/check-layout.mjs         # 版式巡检（裁切/越界/图片/空链接）
+npm run qr -- https://<正式地址>/      # 生成印刷用二维码 PNG + SVG
 ```
 
 > `npm run e2e` 依赖 `playwright-core` 与本机已安装的 Edge/Chrome（不下载浏览器）。
