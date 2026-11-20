@@ -1,0 +1,27 @@
+# 依赖与构建产物
+node_modules/
+dist/
+.vite/
+
+# 本地/临时文件
+*.local
+*.log
+.DS_Store
+Thumbs.db
+
+# 教学内容原始材料（绝不进入公开仓库：含作者元数据与版面信息）
+*.pptx
+*.ppt
+*.doc
+*.docx
+*.pdf
+课件/
+课件素材/
+工作区/
+
+# 编辑器
+.vscode/
+.idea/
+
+# TS 增量构建信息
+*.tsbuildinfo

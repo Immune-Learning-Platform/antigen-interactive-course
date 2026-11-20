@@ -1,0 +1,106 @@
+/* ==========================================================================
+   设计令牌（Design Tokens）—— 全站唯一色彩/尺度/动效来源
+   主色：墨绿 / 深青绿　辅色：科技蓝 / 浅绿　点缀：香槟金 / 暖橙
+   所有前景/背景组合对比度 ≥ 4.5:1
+   ========================================================================== */
+:root {
+  /* 主色系 */
+  --brand-950: #061f1b;
+  --brand-900: #082e28;
+  --brand-800: #0b3b33;
+  --brand-700: #12564c;
+  --brand-600: #186b5e;
+  --brand-500: #1f8472;
+  --brand-300: #7fb8a6;
+
+  /* 辅色 */
+  --blue-700: #17579f;
+  --blue-600: #1f6fd0;
+  --blue-300: #8fbbf0;
+  --blue-100: #e7f0fb;
+
+  --mint-500: #57b08c;
+  --mint-300: #8fc9ae;
+  --mint-100: #e8f3ee;
+  --mint-50: #f1f8f4;
+
+  /* 点缀 */
+  --gold-600: #9c7c14;
+  --gold-500: #c9a227;
+  --gold-100: #f7efd6;
+  --orange-600: #b8571a;
+  --orange-500: #e0762f;
+  --orange-100: #fcebdd;
+
+  /* 语义 */
+  --ok: #1e7f5c;
+  --ok-bg: #e6f4ee;
+  --err: #b3261e;
+  --err-bg: #fbeae9;
+  --warn: #8a6d1f;
+  --warn-bg: #fbf3dd;
+
+  /* 中性 */
+  --bg: #f6f8f7;
+  --bg-alt: #eef2f0;
+  --surface: #ffffff;
+  --surface-2: #fbfcfb;
+  --line: #dde6e2;
+  --line-strong: #c3d2cc;
+  --text: #16211f;
+  --text-soft: #35443f;
+  --muted: #5a6b67;
+  --muted-2: #7d8c88;
+
+  /* 字体 */
+  --font-sans: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Source Han Sans SC",
+    "Noto Sans CJK SC", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+
+  --fs-hero: clamp(1.9rem, 1.1rem + 3vw, 3.4rem);
+  --fs-h1: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
+  --fs-h2: clamp(1.22rem, 1.05rem + 0.8vw, 1.65rem);
+  --fs-h3: clamp(1.05rem, 0.98rem + 0.35vw, 1.22rem);
+  --fs-body: clamp(0.95rem, 0.9rem + 0.2vw, 1.04rem);
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.78rem;
+
+  /* 尺度 */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  --r-sm: 8px;
+  --r: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  --container: 1240px;
+  --nav-h: 64px;
+
+  --sh-1: 0 1px 2px rgba(8, 46, 40, 0.06);
+  --sh-2: 0 2px 6px rgba(8, 46, 40, 0.06), 0 12px 28px -16px rgba(8, 46, 40, 0.22);
+  --sh-3: 0 24px 60px -28px rgba(8, 46, 40, 0.38);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-1: 160ms;
+  --dur-2: 240ms;
+  --dur-3: 420ms;
+
+  --gutter: clamp(16px, 3vw, 40px);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --muted: #3d4a46;
+    --line: #9fb3ac;
+    --line-strong: #6d827b;
+  }
+}
