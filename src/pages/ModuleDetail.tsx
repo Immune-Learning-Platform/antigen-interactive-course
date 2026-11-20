@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { PageHeader } from '../components/learn'
 import { ScrollLink } from '../components/ScrollLink'
+import { MediaPlayerList } from '../components/MediaPlayer'
 import { ModuleVisual } from '../components/ModuleVisual'
 import { QuestionCard } from '../components/quiz'
 import { usePageVisit } from '../components/progress'
@@ -90,6 +91,15 @@ export default function ModuleDetail() {
               <Reveal className="moduleSection__visual">
                 <ModuleVisual visual={s.visual} />
               </Reveal>
+            ) : null}
+
+            {s.media?.length ? (
+              <div style={{ marginTop: 18 }}>
+                <h3 className="moduleSection__quizTitle">
+                  视频 / 动画素材 <span className="xs muted">（如实标注来源与核验状态）</span>
+                </h3>
+                <MediaPlayerList clips={s.media} />
+              </div>
             ) : null}
 
             {s.note ? (

@@ -268,6 +268,28 @@ export const antigenModules: ModuleContent[] = [
           '对教学的直接意义是：过去需要靠晶体学或长时间计算得到的结构信息，现在可以快速获得并用于表位定位，从而指导“该表达哪一段、该保留什么构象”。',
         ],
         visual: 'ai-structure',
+        media: [
+          {
+            id: 'clip-ai-1',
+            kind: 'video',
+            title: '课件第 17 页：结构演示片段（方形）',
+            duration: '8 s',
+            caption: '课件以一段动画演示抗原结构的立体化展示，对应“可对抗原进行立体化展示”这一表述。',
+            provenance:
+              '原文件为本课件内嵌视频（1280×1280，8 s）。可能含第三方软件界面与标识，需核验后接入；当前未投放，知识点由上方“结构预测置信度”示意图承担。',
+            available: false,
+          },
+          {
+            id: 'clip-ai-2',
+            kind: 'video',
+            title: '课件第 17 页：结构演示片段（宽屏）',
+            duration: '10 s',
+            caption: '课件另一段结构演示，用于说明“有效部分（如表位区域）预测”的呈现方式。',
+            provenance:
+              '原文件为本课件内嵌视频（480×410，10 s）。分辨率偏低，需确认可读性与匿名性后再决定是否投放；当前未投放。',
+            available: false,
+          },
+        ],
       },
       {
         id: 'm3-application',

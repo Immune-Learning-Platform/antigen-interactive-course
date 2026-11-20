@@ -176,6 +176,19 @@ export const antigenCourse: CourseConfig = {
         '疫苗里的“抗原含量”为什么要检定？它和疫苗效果是什么关系？',
       ],
       visual: 'two-properties',
+      media: [
+        {
+          id: 'clip-scene',
+          kind: 'video',
+          title: '课件第 2 页：养殖场情境片段',
+          duration: '18 s',
+          caption:
+            '课件用一段现场片段引出“抗原检测—抗原变异—疫苗抗原含量”三个线索，对应本节课前情境与模块一的两大特性。',
+          provenance:
+            '原文件为本课件内嵌视频（1280×736，18 s）。画面可能含软件界面、产品包装等可识别元素，需逐帧核验并去标识化后方可公开投放，因此当前未接入；同一知识点由下方“两大特性”图示承担。',
+          available: false,
+        },
+      ],
     },
     taskIds: ['pre-1', 'pre-2', 'pre-3', 'pre-4'],
     cards: [

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { LearningObjectives, PageHeader } from '../components/learn'
+import { MediaPlayerList } from '../components/MediaPlayer'
 import { ModuleVisual } from '../components/ModuleVisual'
 import { QuestionCard } from '../components/quiz'
 import { usePageVisit, useProgress } from '../components/progress'
@@ -55,6 +56,13 @@ export default function PreClass() {
               <ModuleVisual visual={course.preClass.scenario.visual} />
             </Reveal>
           </div>
+
+          {course.preClass.scenario.media?.length ? (
+            <div style={{ marginTop: 24 }}>
+              <h3 className="moduleSection__quizTitle">情境素材说明</h3>
+              <MediaPlayerList clips={course.preClass.scenario.media} />
+            </div>
+          ) : null}
         </div>
       </section>
 

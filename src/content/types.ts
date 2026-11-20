@@ -28,6 +28,25 @@ export interface Supplement {
   source: SourceRef
 }
 
+/**
+ * 视频 / 动画素材登记项
+ * available=false 表示“尚未完成核验与去标识化”，此时页面只显示说明，不出现空按钮。
+ */
+export interface MediaClip {
+  id: string
+  kind: 'video' | 'animation'
+  title: string
+  /** 相对站点根目录的路径，如 './media/xxx.mp4'；未核验前留空 */
+  src?: string
+  poster?: string
+  duration?: string
+  /** 这段素材讲什么、对应哪个知识点 */
+  caption: string
+  /** 来源与处置（匿名/版权/核验状态） */
+  provenance: string
+  available: boolean
+}
+
 export interface KnowledgeCard {
   title: string
   en?: string
@@ -47,6 +66,8 @@ export interface ModuleSection {
   quizIds?: string[]
   /** 该小节需要渲染的可视化组件 key（由 pages/Modules 分发） */
   visual?: VisualKey
+  /** 该小节的视频/动画素材（含未核验条目，如实标注） */
+  media?: MediaClip[]
   note?: string
 }
 
@@ -273,6 +294,8 @@ export interface CourseConfig {
       body: string[]
       questions: string[]
       visual: VisualKey
+      /** 情境素材（视频未核验时只登记不投放） */
+      media?: MediaClip[]
     }
     /** 预习问题（来自 questions.ts 的 id） */
     taskIds: string[]
