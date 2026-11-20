@@ -2,6 +2,8 @@
 
 一个面向课堂演示与课外自主学习的静态教学站点：把《兽医免疫学》第一章第一节《抗原》的课堂教学内容，重构为可交互的在线学习资源（知识图谱、三维模型、分步动画、随堂测评、案例教学、课程思政、学科前沿、扫码入口）。
 
+**正式地址：https://immune-learning-platform.github.io/antigen-interactive-course/**
+
 - 技术栈：React 19 + TypeScript 5 + Vite 7 + Three.js（原生 API）
 - 构建产物：纯静态文件，可部署到任意支持 HTTPS 的静态托管（默认方案：GitHub Pages）
 - 无后端：学习记录保存在**本机浏览器**（localStorage），不上传、不做“教师后台”
@@ -74,7 +76,21 @@ docs/                         匿名化检查报告、测试记录、复用说�
 
 ---
 
-## 三、部署到 GitHub Pages（推荐方案）
+## 三、更新已上线的站点（日常维护）
+
+站点已部署。改完内容后只需两条命令：
+
+```bash
+npm run build      # 类型检查 + 构建
+npm run publish    # 推到 gh-pages 分支，地址不变
+```
+
+`npm run publish` 会自动复制 `dist/`、写入 `.nojekyll`、以中性身份提交并推送 `gh-pages`。
+**URL 保持不变，已印制的二维码无需更换。** 详见 `docs/部署记录.md`。
+
+首次搭建 / 排查问题的完整步骤见下。
+
+## 三之二、从零部署到 GitHub Pages
 
 ### 0. 一条命令完成推送（推荐）
 

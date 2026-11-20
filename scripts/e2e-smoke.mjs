@@ -18,6 +18,11 @@
 import { chromium } from 'playwright-core'
 
 const BASE = process.env.E2E_BASE ?? 'http://localhost:4321/'
+/**
+ * 线上托管（GitHub Pages 等）常有长连接/预取，networkidle 容易等到超时。
+ * 统一使用 domcontentloaded + 显式等待，本地与线上行为一致且更稳定。
+ */
+const NAV = { waitUntil: 'domcontentloaded', timeout: 45000 }
 const results = []
 let failed = 0
 const check = (name, ok, detail = '') => {
@@ -58,7 +63,7 @@ page.on('console', (m) => {
 
 // 1) 路由渲染
 for (const [path, expect] of routes) {
-  await page.goto(BASE + path.slice(1), { waitUntil: 'networkidle' })
+  await page.goto(BASE + path.slice(1), { ...NAV })
   await page.waitForTimeout(500)
   const h1 = (await page.locator('h1').first().innerText().catch(() => '')).replace(/\s+/g, ' ')
   const is404 = (await page.locator('body').innerText()).includes('没有找到这个页面')
@@ -67,8 +72,8 @@ for (const [path, expect] of routes) {
 }
 
 // 2) 首页三维
-await page.goto(BASE + '/', { waitUntil: 'networkidle' })
-await page.waitForTimeout(1500)
+await page.goto(BASE + '/', { ...NAV })
+await page.waitForTimeout(3000)
 check('首页三维 canvas 渲染', (await page.locator('canvas').count()) === 1)
 const labels = await page.locator('.stage__label').count()
 check('三维部件标签数量', labels >= 4, `${labels} 个标签`)
@@ -87,7 +92,7 @@ await page.waitForTimeout(300)
 check('三维“变性处理”开关生效', (await denature.getAttribute('aria-pressed')) === 'true')
 
 // 3) 课前预习即时反馈
-await page.goto(BASE + '/#/pre-class', { waitUntil: 'networkidle' })
+await page.goto(BASE + '/#/pre-class', { ...NAV })
 await page.waitForTimeout(500)
 const q1 = page.locator('.qcard').first()
 await q1.locator('.opt').nth(2).click()
@@ -96,7 +101,7 @@ check('单选即时反馈出现', (await q1.locator('.qfeedback').count()) === 1
 check('答题后标记“已作答”', (await q1.locator('.tag--ok').count()) >= 1)
 
 // 4) 模块二：三维 + 分步动画
-await page.goto(BASE + '/#/modules/m2', { waitUntil: 'networkidle' })
+await page.goto(BASE + '/#/modules/m2', { ...NAV })
 await page.waitForTimeout(1000)
 check('模块二三维表位模型', (await page.locator('canvas').count()) === 1)
 const player = page.locator('.stepPlayer').first()
@@ -107,7 +112,7 @@ await player.getByRole('button', { name: /暂停/ }).click()
 check('动画可播放/暂停', (await player.locator('.stepChip.is-active').count()) === 1)
 
 // 5) 课堂互动六任务
-await page.goto(BASE + '/#/classroom', { waitUntil: 'networkidle' })
+await page.goto(BASE + '/#/classroom', { ...NAV })
 await page.waitForTimeout(1200)
 check('课堂互动含 6 个任务卡', (await page.locator('.taskcard').count()) === 6)
 check('结构解剖台三维可用', (await page.locator('canvas').count()) === 1)
@@ -124,7 +129,7 @@ await page.locator('#t4 input[type=range]').fill('90')
 check('匹配模拟滑杆有反馈', (await page.locator('.binder__result').innerText()).includes('强结合'))
 
 // 5.5) 页内锚点按钮（HashRouter 安全跳转）
-await page.goto(BASE + '#/modules/m2', { waitUntil: 'networkidle' })
+await page.goto(BASE + '#/modules/m2', { ...NAV })
 await page.waitForTimeout(700)
 const hashBefore = await page.evaluate(() => window.location.hash)
 await page.locator('.sectionnav__btn').nth(2).click()
@@ -143,14 +148,14 @@ const inView = await page.evaluate(() => {
 check('页内锚点滚动到目标小节', inView)
 
 // 6) 二维码图片真实加载
-await page.goto(BASE + '/#/qr', { waitUntil: 'networkidle' })
+await page.goto(BASE + '/#/qr', { ...NAV })
 await page.waitForTimeout(900)
 const qrWidth = await page.locator('.qrcard__img').evaluate((el) => el.naturalWidth).catch(() => 0)
 check('二维码图片加载成功', qrWidth > 200, `naturalWidth=${qrWidth}`)
 
 // 7) 深链接刷新
-await page.goto(BASE + '/#/modules/m3', { waitUntil: 'networkidle' })
-await page.reload({ waitUntil: 'networkidle' })
+await page.goto(BASE + '/#/modules/m3', { ...NAV })
+await page.reload({ ...NAV })
 await page.waitForTimeout(600)
 check('深链接刷新不 404', (await page.locator('body').innerText()).includes('兽医学中重要的抗原'))
 
@@ -164,7 +169,7 @@ for (const [w, h] of [
   const c = await browser.newContext({ viewport: { width: w, height: h }, isMobile: w < 500, hasTouch: w < 500 })
   const p = await c.newPage()
   for (const path of ['/', '/#/classroom', '/#/modules/m3', '/#/assessment']) {
-    await p.goto(BASE + path.slice(1), { waitUntil: 'networkidle' })
+    await p.goto(BASE + path.slice(1), { ...NAV })
     await p.waitForTimeout(500)
     const over = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
     check(`${w}×${h} ${path} 无横向溢出`, over <= 0, `overflow=${over}px`)
@@ -175,8 +180,8 @@ for (const [w, h] of [
 // 9) 移动端抽屉
 const mob = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
 const mp = await mob.newPage()
-await mp.goto(BASE, { waitUntil: 'networkidle' })
-await mp.waitForTimeout(700)
+await mp.goto(BASE, { ...NAV })
+await mp.waitForTimeout(2500)
 check('移动端汉堡按钮可见', await mp.locator('.hamburger').isVisible())
 await mp.locator('.hamburger').click()
 await mp.waitForTimeout(400)
