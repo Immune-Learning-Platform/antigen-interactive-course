@@ -1,0 +1,7 @@
+《兽医免疫学》互动学习资源 · 二维码信息
+章节标识: course-06
+目标地址: https://immune-learning-platform.github.io/antigen-interactive-course/#/course-06
+生成时间: 2026-11-20T11:40:09.671Z
+
+可用性说明：二维码本身不会过期，但它指向的站点地址必须持续可访问。
+若更换托管平台、仓库或域名，请重新运行 npm run qr -- <新地址>，并替换已印制的二维码。
