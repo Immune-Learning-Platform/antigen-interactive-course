@@ -1,5 +1,5 @@
 import type { VisualKey } from '../content/types'
-import { AiStructureVisual, BoneMarrowLab, EpitopeLab, StructureLab } from './labs'
+import { AiStructureVisual, BoneMarrowLab, EpitopeLab, IgGStructureLab, StructureLab } from './labs'
 import {
   ConceptTimeline,
   EpitopeTypesVisual,
@@ -19,6 +19,16 @@ import {
   StemCellRelations,
   TransplantFlow,
 } from './bone-visuals'
+import {
+  AdccVsCdc,
+  AntibodyApplications,
+  AntibodyBasicStructure,
+  AntibodyFunctions,
+  AntibodyHydrolysis,
+  AntibodyIndustry,
+  AntiserumProduction,
+  JChainSecretory,
+} from './antibody-visuals'
 
 /**
  * 可视化分发器：内容层只声明 visual key，渲染实现集中在此。
@@ -66,6 +76,25 @@ export function ModuleVisual({ visual }: { visual: VisualKey }) {
       return <MscRepair />
     case 'organoid-frontier':
       return <OrganoidFrontier />
+    // —— 第3章 抗体 ——
+    case 'antibody-structure':
+      return <IgGStructureLab />
+    case 'antibody-basic':
+      return <AntibodyBasicStructure />
+    case 'jchain-secretory':
+      return <JChainSecretory />
+    case 'antibody-hydrolysis':
+      return <AntibodyHydrolysis />
+    case 'antibody-functions':
+      return <AntibodyFunctions />
+    case 'adcc-vs-cdc':
+      return <AdccVsCdc />
+    case 'antiserum-production':
+      return <AntiserumProduction />
+    case 'antibody-industry':
+      return <AntibodyIndustry />
+    case 'antibody-applications':
+      return <AntibodyApplications />
     default:
       return null
   }

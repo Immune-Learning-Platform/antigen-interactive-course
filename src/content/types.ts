@@ -93,6 +93,16 @@ export type VisualKey =
   | 'transplant-flow'
   | 'msc-repair'
   | 'organoid-frontier'
+  // —— 第3章 抗体 ——
+  | 'antibody-structure'
+  | 'antibody-basic'
+  | 'jchain-secretory'
+  | 'antibody-hydrolysis'
+  | 'antibody-functions'
+  | 'adcc-vs-cdc'
+  | 'antiserum-production'
+  | 'antibody-industry'
+  | 'antibody-applications'
 
 export interface ModuleContent {
   id: string

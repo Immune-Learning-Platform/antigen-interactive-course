@@ -4,6 +4,7 @@ import { createAntibodyScene } from '../three/createAntibodyScene'
 import { createBacteriumScene } from '../three/createBacteriumScene'
 import { createVirusScene } from '../three/createVirusScene'
 import { createBoneMarrowScene } from '../three/createBoneMarrowScene'
+import { createIgGScene } from '../three/createIgGScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -301,6 +302,45 @@ export function BoneMarrowLab() {
           setActiveId(id)
         }}
         intro="模型包含：骨皮质与骨小梁、红骨髓、黄骨髓、血窦、造血微环境（HIM）与造血干细胞（HSC）。试试点选“造血微环境”查看它与 HSC 的关系。"
+      />
+    </div>
+  )
+}
+
+
+/* ------------------------ 第3章：IgG 结构解剖台 ------------------------ */
+
+/** IgG 结构解剖台（第3章专属） */
+export function IgGStructureLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createIgGScene}
+        title="IgG 结构解剖模型"
+        badge="三维模型 · 抗体"
+        hint="拖动旋转 · 滚轮缩放 · 点击结构查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="模型包含：重链、轻链、可变区（V 区）、恒定区（C 区）、Fc 段与二硫键。试试打开工具栏的“C 区示意”，对比 V 区与 C 区的分区。"
       />
     </div>
   )

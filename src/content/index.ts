@@ -23,6 +23,18 @@ import {
   boneHomework,
   boneIdeology,
 } from './bone/extras'
+import { antibodyCourse } from './antibody/course'
+import { antibodyModules } from './antibody/modules'
+import { antibodyQuestionBank, antibodyGroups } from './antibody/questions'
+import {
+  antibodyAssessment,
+  antibodyCases,
+  antibodyChecklist,
+  antibodyFrontier,
+  antibodyGlossary,
+  antibodyHomework,
+  antibodyIdeology,
+} from './antibody/extras'
 
 /**
  * 课程包（Course Bundle）
@@ -91,7 +103,32 @@ export const boneBundle: CourseBundle = {
  * courses[0] 恒为第1章（受保护基线，路由挂在站点根路径）；
  * 第2—8章通过 /course-0X/* 路由 + CourseProvider 注入。
  */
-export const courses: CourseBundle[] = [antigenBundle, boneBundle]
+/** 第3章 抗体生物学功能 */
+export const antibodyBundle: CourseBundle = {
+  course: antibodyCourse,
+  modules: antibodyModules,
+  cases: antibodyCases,
+  questions: antibodyQuestionBank,
+  groups: antibodyGroups,
+  homeworkTiers: antibodyHomework,
+  assessment: antibodyAssessment,
+  ideology: antibodyIdeology,
+  frontier: antibodyFrontier,
+  glossary: antibodyGlossary,
+  checklist: antibodyChecklist,
+  requiredPages: [
+    '/course-03',
+    '/course-03/pre-class',
+    '/course-03/modules/m1',
+    '/course-03/modules/m2',
+    '/course-03/modules/m3',
+    '/course-03/classroom',
+    '/course-03/cases',
+    '/course-03/homework',
+  ],
+}
+
+export const courses: CourseBundle[] = [antigenBundle, boneBundle, antibodyBundle]
 /** 兼容旧代码：默认课程 = 第1章（行为与改造前一致） */
 export const activeCourse = courses[0]
 
