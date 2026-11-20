@@ -63,14 +63,23 @@ export const REQUIRED_PAGES = [
   '/homework',
 ]
 
+/*
+ * 查找函数一律基于 activeCourse，而不是写死某个课程包。
+ * 否则“换一章只改内容”就不成立：页面会继续显示上一章的数据。
+ */
 export function getModule(id: string | undefined): ModuleContent | undefined {
-  return antigenBundle.modules.find((m) => m.id === id)
+  return activeCourse.modules.find((m) => m.id === id)
 }
 
 export function getQuestion(id: string): Question | undefined {
-  return antigenBundle.questions[id]
+  return activeCourse.questions[id]
 }
 
 export function questionsOf(ids: string[]): Question[] {
-  return ids.map((id) => antigenBundle.questions[id]).filter(Boolean)
+  return ids.map((id) => activeCourse.questions[id]).filter(Boolean)
+}
+
+/** 安全取题：缺题时返回 undefined，由页面决定如何降级，而不是渲染空白卡片 */
+export function findQuestion(id: string): Question | undefined {
+  return activeCourse.questions[id]
 }

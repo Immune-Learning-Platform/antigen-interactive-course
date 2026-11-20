@@ -13,6 +13,8 @@ export default function Homework() {
   const answered = allIds.filter((id) => state.answers[id] || state.drafts[id]).length
   const objectiveIds = allIds.filter((id) => activeCourse.questions[id]?.type !== 'open')
   const correct = objectiveIds.filter((id) => state.answers[id]?.correct).length
+  const safeAll = Math.max(allIds.length, 1)
+  const safeObj = Math.max(objectiveIds.length, 1)
 
   return (
     <>
@@ -38,12 +40,12 @@ export default function Homework() {
               <p className="metric__value">
                 {answered} / {allIds.length}
               </p>
-              <ProgressBar value={(answered / allIds.length) * 100} thin />
+              <ProgressBar value={(answered / safeAll) * 100} thin />
             </article>
             <article className="card">
               <p className="metric__label">客观题正确率</p>
               <p className="metric__value">
-                {objectiveIds.length ? Math.round((correct / objectiveIds.length) * 100) : 0}%
+                {Math.round((correct / safeObj) * 100)}%
               </p>
               <p className="xs muted">目标 ≥ 80%；错题请回到对应模块查看解析。</p>
             </article>

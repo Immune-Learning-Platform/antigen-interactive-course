@@ -7,7 +7,7 @@ import { QuestionCard } from '../components/quiz'
 import { BindingSimulator } from '../components/BindingSimulator'
 import { usePageVisit, useProgress } from '../components/progress'
 import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
-import { activeCourse, questionsOf } from '../content'
+import { findQuestion, questionsOf } from '../content'
 
 const STRUCTURE_GOALS = [
   { id: 'flagella', label: '找到“H 抗原”（鞭毛）' },
@@ -15,6 +15,21 @@ const STRUCTURE_GOALS = [
   { id: 'capsule', label: '找到荚膜抗原' },
   { id: 'teichoic', label: '找到革兰阳性菌的磷壁酸' },
 ]
+
+/** 某任务题目未在内容层提供时的降级块：说明缺失原因，而不是白屏或空卡片 */
+function MissingTask({ what }: { what: string }) {
+  return (
+    <div className="callout callout--warn">
+      <span className="callout__icon" aria-hidden="true">⚠️</span>
+      <div>
+        <strong>本任务的题目尚未在内容层提供</strong>
+        <br />
+        缺少：<span className="mono">{what}</span>。请在 <span className="mono">src/content/&lt;课程&gt;/questions.ts</span>
+        中补充该题目，并在任务配置里引用。此提示不会出现在已完成内容配置的章节中。
+      </div>
+    </div>
+  )
+}
 
 export default function Classroom() {
   usePageVisit('/classroom')
@@ -125,7 +140,10 @@ export default function Classroom() {
               }
               summary="线性表位讲“序列”，构象表位讲“形状”；这决定了疫苗抗原该不该保持天然构象。"
             >
-              <QuestionCard q={activeCourse.questions['cl-t2']} group="classroom" />
+              {(() => {
+                const q = findQuestion('cl-t2')
+                return q ? <QuestionCard q={q} group="classroom" /> : <MissingTask what="cl-t2（表位分类题）" />
+              })()}
             </TaskCard>
 
             <TaskCard
@@ -141,7 +159,10 @@ export default function Classroom() {
               }
               summary="摄取 → 加工 → 递呈 → 识别 → 活化：这条链条解释了为什么“灭活不当/构象破坏”会影响细胞免疫。"
             >
-              <QuestionCard q={activeCourse.questions['cl-t3']} group="classroom" />
+              {(() => {
+                const q = findQuestion('cl-t3')
+                return q ? <QuestionCard q={q} group="classroom" /> : <MissingTask what="cl-t3（流程排序题）" />
+              })()}
             </TaskCard>
 
             <TaskCard
@@ -195,7 +216,10 @@ export default function Classroom() {
               }
               summary="遇到免疫失败，先分清“抗原问题 / 匹配问题 / 实施问题”，再谈换不换疫苗。"
             >
-              <QuestionCard q={activeCourse.questions['cl-t6']} group="classroom" />
+              {(() => {
+                const q = findQuestion('cl-t6')
+                return q ? <QuestionCard q={q} group="classroom" /> : <MissingTask what="cl-t6（情境决策题）" />
+              })()}
             </TaskCard>
           </div>
         </div>
