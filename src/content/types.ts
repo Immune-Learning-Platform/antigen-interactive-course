@@ -103,6 +103,15 @@ export type VisualKey =
   | 'antiserum-production'
   | 'antibody-industry'
   | 'antibody-applications'
+  // —— 第4章 细胞因子 ——
+  | 'cytokine-network'
+  | 'cytokine-secretion'
+  | 'cytokine-five-properties'
+  | 'cytokine-signal'
+  | 'cytokine-mechanisms'
+  | 'cytokine-storm'
+  | 'ifn-trial'
+  | 'cytokine-applications'
 
 export interface ModuleContent {
   id: string

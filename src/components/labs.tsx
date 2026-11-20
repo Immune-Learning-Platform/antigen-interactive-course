@@ -5,6 +5,7 @@ import { createBacteriumScene } from '../three/createBacteriumScene'
 import { createVirusScene } from '../three/createVirusScene'
 import { createBoneMarrowScene } from '../three/createBoneMarrowScene'
 import { createIgGScene } from '../three/createIgGScene'
+import { createCytokineScene } from '../three/createCytokineScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -341,6 +342,45 @@ export function IgGStructureLab() {
           setActiveId(id)
         }}
         intro="模型包含：重链、轻链、可变区（V 区）、恒定区（C 区）、Fc 段与二硫键。试试打开工具栏的“C 区示意”，对比 V 区与 C 区的分区。"
+      />
+    </div>
+  )
+}
+
+
+/* ------------------------ 第4章：细胞因子信号实验室 ------------------------ */
+
+/** 细胞因子—受体—信号转导解剖台（第4章专属） */
+export function CytokineSignalLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createCytokineScene}
+        title="细胞因子信号转导模型"
+        badge="三维模型 · 细胞因子"
+        hint="拖动旋转 · 滚轮缩放 · 点击结构查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="模型包含：细胞因子（配体）、细胞表面受体、信号转导通路、细胞核与靶细胞。请按“配体 → 受体 → 通路 → 细胞核”的顺序点一遍。"
       />
     </div>
   )
