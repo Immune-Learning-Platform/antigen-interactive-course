@@ -4,7 +4,16 @@ import { AppShell } from './components/AppShell'
 import { GlossaryProvider } from './components/glossary'
 import { ProgressProvider } from './components/progress'
 import { CourseProvider } from './course-context'
-import { activeCourse, antibodyBundle, boneBundle, cellularBundle, cytokineBundle, hypersensitivityBundle, type CourseBundle } from './content'
+import {
+  activeCourse,
+  antibodyBundle,
+  boneBundle,
+  cellularBundle,
+  cytokineBundle,
+  hypersensitivityBundle,
+  lateralFlowBundle,
+  type CourseBundle,
+} from './content'
 import Home from './pages/Home'
 import PreClass from './pages/PreClass'
 import Modules from './pages/Modules'
@@ -129,6 +138,18 @@ export default function App() {
           path="course-06"
           element={
             <Chapter bundle={hypersensitivityBundle}>
+              <AppShell />
+            </Chapter>
+          }
+        >
+          {courseRoutes()}
+        </Route>
+
+        {/* ---------- 第7章 免疫层析试纸条技术 ---------- */}
+        <Route
+          path="course-07"
+          element={
+            <Chapter bundle={lateralFlowBundle}>
               <AppShell />
             </Chapter>
           }

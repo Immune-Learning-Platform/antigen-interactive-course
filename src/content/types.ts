@@ -136,6 +136,17 @@ export type VisualKey =
   | 'management-strategies'
   | 'desensitization'
   | 'targeted-therapy'
+  // —— 第7章 免疫层析试纸条 ——
+  | 'lfa-concept'
+  | 'lfa-structure'
+  | 'lfa-three-steps'
+  | 'sandwich-assay'
+  | 'indirect-assay'
+  | 'lfa-compare'
+  | 'lfa-reading'
+  | 'lfa-why-c'
+  | 'quantum-dot'
+  | 'strip-lab'
 
 export interface ModuleContent {
   id: string

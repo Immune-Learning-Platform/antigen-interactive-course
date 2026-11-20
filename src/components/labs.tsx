@@ -8,6 +8,7 @@ import { createIgGScene } from '../three/createIgGScene'
 import { createCytokineScene } from '../three/createCytokineScene'
 import { createSynapseScene } from '../three/createSynapseScene'
 import { createMastCellScene } from '../three/createMastCellScene'
+import { createStripScene } from '../three/createStripScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -461,6 +462,45 @@ export function MastCellLab() {
           setActiveId(id)
         }}
         intro="模型包含：细胞膜、FcεRI 受体、IgE（Fc 段已结合受体、Fab 段朝外）、胞内颗粒、变应原与已释放介质。请按“IgE → 受体 → 颗粒 → 变应原”的顺序点一遍。"
+      />
+    </div>
+  )
+}
+
+
+/* ------------------------ 第7章：试纸条结构实验室 ------------------------ */
+
+/** 免疫层析试纸条解剖台（第7章专属） */
+export function StripLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createStripScene}
+        title="免疫层析试纸条结构模型"
+        badge="三维模型 · 试纸条"
+        hint="拖动旋转 · 滚轮缩放 · 点击结构查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="模型包含：样品垫、结合垫（金垫）、NC 膜、T 线、C 线与吸水垫，以及流动方向箭头。请按液体流经顺序点一遍。"
       />
     </div>
   )
