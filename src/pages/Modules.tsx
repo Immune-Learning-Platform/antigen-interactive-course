@@ -6,6 +6,7 @@ import { useGlossary } from '../components/glossary'
 import { activeCourse } from '../content'
 
 export default function Modules() {
+  const copy = activeCourse.course.pageCopy.modules
   usePageVisit('/modules')
   const { state } = useProgress()
   const course = activeCourse.course
@@ -15,10 +16,10 @@ export default function Modules() {
   return (
     <>
       <PageHeader
-        eyebrow="模块学习 · 三个知识模块"
-        title="按课件三条主线，逐层深入"
-        en="Modules"
-        lead="模块一是基础（概念与特性），模块二是难点（诱导应答的机制），模块三是重点（兽医学重要抗原）。每个模块都有目标卡、正文、可视化与随堂小测。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">3 个模块</Tag>

@@ -9,6 +9,7 @@ import { useGlossary } from '../components/glossary'
 import { activeCourse, questionsOf } from '../content'
 
 export default function PreClass() {
+  const copy = activeCourse.course.pageCopy.preClass
   usePageVisit('/pre-class')
   const course = activeCourse.course
   const { state } = useProgress()
@@ -21,10 +22,10 @@ export default function PreClass() {
   return (
     <>
       <PageHeader
-        eyebrow="课前学习 · 学习任务驱动型预习"
-        title="带问题进课堂"
-        en="Pre-class"
-        lead="先看一个真实的养殖场情境，再带着 4 个问题读完知识卡。答完立刻能看到对错与解析——不必一次记牢，把没想通的问题带进课堂就好。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">建议 15 分钟</Tag>
@@ -70,8 +71,8 @@ export default function PreClass() {
       <section className="section section--tight section--mint" id="objectives">
         <div className="container">
           <SectionHead
-            eyebrow="② 学习目标（三维）"
-            title="这节课要达成什么"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
             intro="按“知识—能力—素养”三维列出，达标线写在最后。课后再回看一次，自查是否真的做到。"
           />
           <LearningObjectives objectives={course.objectives} />

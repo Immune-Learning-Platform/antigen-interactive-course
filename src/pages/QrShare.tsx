@@ -3,6 +3,7 @@ import QRCode from 'qrcode'
 import { PageHeader } from '../components/learn'
 import { usePageVisit } from '../components/progress'
 import { Callout, SectionHead, Tag } from '../components/ui'
+import { activeCourse } from '../content'
 
 /**
  * 扫码学习页
@@ -24,6 +25,7 @@ export default function QrShare() {
   const [svgUrl, setSvgUrl] = useState('')
   const [copied, setCopied] = useState(false)
   const url = useMemo(() => siteRootUrl(), [])
+  const pageCopy = activeCourse.course.pageCopy.qr
 
   useEffect(() => {
     let pngAlive = true
@@ -64,10 +66,10 @@ export default function QrShare() {
   return (
     <>
       <PageHeader
-        eyebrow="扫码学习 · 手机端入口"
-        title="用手机扫描同一个地址"
-        en="QR access"
-        lead="二维码指向本章资源的站点根地址。同一个二维码可长期复用：只要站点地址不变，重新部署内容后二维码依然有效。"
+        eyebrow={pageCopy.eyebrow}
+        title={pageCopy.title}
+        en={pageCopy.en}
+        lead={pageCopy.lead}
         meta={
           <>
             <Tag tone="gold">固定地址</Tag>

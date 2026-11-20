@@ -5,15 +5,16 @@ import { Callout, SectionHead, Tag } from '../components/ui'
 import { activeCourse } from '../content'
 
 export default function Ideology() {
+  const copy = activeCourse.course.pageCopy.ideology
   usePageVisit('/ideology')
 
   return (
     <>
       <PageHeader
-        eyebrow="课程思政 · 价值引领"
-        title="四个融入点：从分子机制到职业责任"
-        en="Value education"
-        lead="思政不是额外加一段话，而是从知识点本身“长出来”：抗原检测连着公共卫生，抗原制备连着生物安全，表位预测连着科学精神，疫苗创制连着产业能力。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">4 个融入点</Tag>

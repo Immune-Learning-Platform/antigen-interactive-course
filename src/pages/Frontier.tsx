@@ -11,15 +11,16 @@ const LEVEL_TONE = {
 } as const
 
 export default function Frontier() {
+  const copy = activeCourse.course.pageCopy.frontier
   usePageVisit('/frontier')
 
   return (
     <>
       <PageHeader
-        eyebrow="学科前沿 · 研究进展"
-        title="从“表位”到“设计”：抗原研究正在往哪走"
-        en="Frontiers"
-        lead="本页严格区分三类内容：课件原文、由课件延伸的常规做法、以及标注来源的补充阅读。凡非课件原文，均给出可核验来源。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">课件原文 2 条</Tag>

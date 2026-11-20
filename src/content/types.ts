@@ -261,6 +261,44 @@ export interface CourseNavItem {
   desc: string
 }
 
+/** 单个页面的标题区文案（数据化，换章节时随内容一起替换） */
+export interface PageCopy {
+  eyebrow: string
+  title: string
+  lead: string
+  en?: string
+}
+
+/** 页面文案集合：键名对应页面标识 */
+export interface PageCopyMap {
+  preClass: PageCopy
+  modules: PageCopy
+  classroom: PageCopy
+  cases: PageCopy
+  homework: PageCopy
+  assessment: PageCopy
+  ideology: PageCopy
+  frontier: PageCopy
+  qr: PageCopy
+}
+
+/** 课堂互动任务的“学生操作”载体类型 */
+export type TaskInteraction =
+  | { kind: 'structure-lab'; goals: { id: string; label: string }[]; doneHint?: string }
+  | { kind: 'question'; questionId: string; missingLabel?: string }
+  | { kind: 'question-set'; questionIds: string[] }
+  | { kind: 'binding-simulator' }
+
+export interface ClassroomTask {
+  id: string
+  title: string
+  scenario: string
+  /** 机制解释段落；`**文字**` 表示加粗 */
+  mechanism: string[]
+  summary: string
+  interaction: TaskInteraction
+}
+
 export interface CourseConfig {
   id: string
   /** 例如 “第一章第一节” */
@@ -274,6 +312,10 @@ export interface CourseConfig {
   /** 首屏的三个关键数字 */
   stats: { value: string; label: string }[]
   keywords: string[]
+  /** 各页面标题区文案（避免页面里写死上一章的话术） */
+  pageCopy: PageCopyMap
+  /** 课堂互动任务（6 个左右，按本章内容定义） */
+  classroomTasks: ClassroomTask[]
   objectives: {
     knowledge: string[]
     ability: string[]

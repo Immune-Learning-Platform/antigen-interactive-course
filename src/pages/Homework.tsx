@@ -6,6 +6,7 @@ import { Callout, ProgressBar, SectionHead, Tag } from '../components/ui'
 import { activeCourse, questionsOf } from '../content'
 
 export default function Homework() {
+  const copy = activeCourse.course.pageCopy.homework
   usePageVisit('/homework')
   const { state } = useProgress()
 
@@ -19,10 +20,10 @@ export default function Homework() {
   return (
     <>
       <PageHeader
-        eyebrow="课后作业 · 分层任务"
-        title="基础 / 提升 / 拓展：按需完成任务"
-        en="Homework"
-        lead="客观题即时判分并给出解析，可反复练习；开放题请先写再看参考思路，草稿保存在本机浏览器。所有题目都可以“再做一次”，用于错题重练。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">3 层任务</Tag>

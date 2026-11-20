@@ -17,6 +17,7 @@ const GROUP_LABEL: Record<string, string> = {
 }
 
 export default function Assessment() {
+  const copy = activeCourse.course.pageCopy.assessment
   usePageVisit('/assessment')
   const { state, reset, storageAvailable, toggleCheck } = useProgress()
   const stats = useStats(REQUIRED_PAGES)
@@ -31,10 +32,10 @@ export default function Assessment() {
   return (
     <>
       <PageHeader
-        eyebrow="学习评价 · 形成性评价"
-        title="看清自己学到了哪一步"
-        en="Assessment"
-        lead="评价由四部分组成：知识掌握、任务完成、互动练习、前后测对照。除课堂与作业记录由教师掌握外，本页展示的数据全部来自本机浏览器的学习记录。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">四维评价</Tag>

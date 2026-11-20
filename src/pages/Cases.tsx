@@ -5,15 +5,16 @@ import { Callout, SectionHead, Tag } from '../components/ui'
 import { activeCourse } from '../content'
 
 export default function Cases() {
+  const copy = activeCourse.course.pageCopy.cases
   usePageVisit('/cases')
 
   return (
     <>
       <PageHeader
-        eyebrow="案例教学 · 真实问题驱动"
-        title="三个问题，三种“用得上”的免疫学"
-        en="Case studies"
-        lead="案例统一按“真实问题 → 科学分析 → 知识应用 → 结果反馈”四段呈现。每个案例都标注依据来源，并声明是否为教学情境——本页不虚构真实病例与实验数据。"
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        en={copy.en}
+        lead={copy.lead}
         meta={
           <>
             <Tag tone="gold">3 个案例</Tag>
