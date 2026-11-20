@@ -4,7 +4,7 @@ import { AppShell } from './components/AppShell'
 import { GlossaryProvider } from './components/glossary'
 import { ProgressProvider } from './components/progress'
 import { CourseProvider } from './course-context'
-import { activeCourse, antibodyBundle, boneBundle, cytokineBundle, type CourseBundle } from './content'
+import { activeCourse, antibodyBundle, boneBundle, cellularBundle, cytokineBundle, type CourseBundle } from './content'
 import Home from './pages/Home'
 import PreClass from './pages/PreClass'
 import Modules from './pages/Modules'
@@ -105,6 +105,18 @@ export default function App() {
           path="course-04"
           element={
             <Chapter bundle={cytokineBundle}>
+              <AppShell />
+            </Chapter>
+          }
+        >
+          {courseRoutes()}
+        </Route>
+
+        {/* ---------- 第5章 细胞免疫应答 ---------- */}
+        <Route
+          path="course-05"
+          element={
+            <Chapter bundle={cellularBundle}>
               <AppShell />
             </Chapter>
           }

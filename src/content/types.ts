@@ -112,6 +112,18 @@ export type VisualKey =
   | 'cytokine-storm'
   | 'ifn-trial'
   | 'cytokine-applications'
+  // —— 第5章 细胞免疫应答 ——
+  | 'cellular-division'
+  | 'cellular-three-stages'
+  | 'cellular-history'
+  | 'antigen-presentation'
+  | 'presentation-routes'
+  | 'immune-synapse'
+  | 'three-signals'
+  | 'effector-mechanisms'
+  | 'cellular-applications'
+  | 'dth-dual'
+  | 'cart-flow'
 
 export interface ModuleContent {
   id: string

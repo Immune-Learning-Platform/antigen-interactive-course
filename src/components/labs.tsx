@@ -6,6 +6,7 @@ import { createVirusScene } from '../three/createVirusScene'
 import { createBoneMarrowScene } from '../three/createBoneMarrowScene'
 import { createIgGScene } from '../three/createIgGScene'
 import { createCytokineScene } from '../three/createCytokineScene'
+import { createSynapseScene } from '../three/createSynapseScene'
 import { EpitopeTypesVisual } from './visuals'
 import { Tag } from './ui'
 
@@ -381,6 +382,45 @@ export function CytokineSignalLab() {
           setActiveId(id)
         }}
         intro="模型包含：细胞因子（配体）、细胞表面受体、信号转导通路、细胞核与靶细胞。请按“配体 → 受体 → 通路 → 细胞核”的顺序点一遍。"
+      />
+    </div>
+  )
+}
+
+
+/* ------------------------ 第5章：免疫突触实验室 ------------------------ */
+
+/** 免疫突触解剖台（第5章专属） */
+export function SynapseLab() {
+  const [parts, setParts] = useState<ViewerPart[]>([])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="lab">
+      <ModelViewer
+        factory={createSynapseScene}
+        title="免疫突触模型"
+        badge="三维模型 · 免疫突触"
+        hint="拖动旋转 · 滚轮缩放 · 点击结构查看说明"
+        height={430}
+        onReady={setParts}
+        onSelect={(p) => setActiveId(p?.id ?? null)}
+        selectedId={selected}
+        fallback={
+          <p className="small" style={{ padding: 16 }}>
+            当前环境不支持 WebGL，请使用右侧结构清单查看各部分说明（内容与三维一致）。
+          </p>
+        }
+      />
+      <LabPanel
+        parts={parts}
+        activeId={activeId}
+        onPick={(id) => {
+          setSelected(id)
+          setActiveId(id)
+        }}
+        intro="模型包含：APC 与 T 细胞、p-MHC、TCR、共刺激分子、黏附分子与细胞因子。请按“黏附 → TCR 识别 → 共刺激 → 细胞因子”的顺序点一遍，对应三个信号。"
       />
     </div>
   )
