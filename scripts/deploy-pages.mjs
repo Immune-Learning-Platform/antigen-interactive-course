@@ -20,8 +20,14 @@ const sh = (cmd, opts = {}) => execSync(cmd, { encoding: 'utf8', stdio: ['ignore
 const run = (cmd) => execSync(cmd, { stdio: 'inherit' })
 
 const dist = resolve(process.cwd(), 'dist')
+
+// 先构建：内容层或 public/（如二维码）改动后必须重新构建，否则产物会缺文件。
+// 这一步曾导致 public/qr/course-07 已生成但 dist 未包含 → 线上 404。
+console.log('→ 构建（tsc + vite build）')
+run('npm run build')
+
 if (!existsSync(dist)) {
-  console.error('✗ 找不到 dist/，请先运行 npm run build')
+  console.error('✗ 构建后仍找不到 dist/')
   process.exit(1)
 }
 
