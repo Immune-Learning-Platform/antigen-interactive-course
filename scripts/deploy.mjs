@@ -224,6 +224,42 @@ ${c.bold('发布后回来生成二维码：')}
   process.exit(0)
 }
 
+// 推送前确认仓库已在 GitHub 上创建。
+// 注意：不能用 fetch HEAD 判断——GitHub 对不存在的仓库也会返回 200（软 404 页面）。
+// git ls-remote 是权威判据：仓库不存在时输出 "Repository not found"。
+const repoName = repoUrl.split('/').pop().replace(/\.git$/, '')
+let repoExists = null
+try {
+  execSync(`git ls-remote --exit-code ${repoUrl}`, { stdio: 'pipe' })
+  repoExists = true
+} catch (err) {
+  const msg = String(err.stderr || err.message || '')
+  // 认证失败不等于仓库不存在，此时不做判断
+  if (/not found|could not read|does not exist/i.test(msg)) repoExists = false
+  else repoExists = null
+}
+
+if (repoExists === false) {
+  console.log(c.err('\n✗ 仓库还不存在，无法推送。'))
+  console.log(`
+  GitHub 不支持“push 时自动创建仓库”，需要你先在网页上点一次（约 30 秒）：
+
+    ${c.bold('https://github.com/new?name=' + repoName)}
+
+  创建时注意四项：
+    · Repository name  ${c.bold(repoName)}
+    · Description       ${c.bold('留空')}（不要写单位、姓名、比赛信息）
+    · 可见性             ${c.bold('Public')}（Private 仓库无法启用 GitHub Pages）
+    · Initialize         ${c.bold('三个勾选项全部不要勾')}（README/.gitignore/license 会与本地提交冲突）
+
+  若该账号是组织，改用：
+    https://github.com/organizations/${owner}/repositories/new
+
+  创建完成后重新运行本条命令即可。
+`)
+  process.exit(1)
+}
+
 console.log(c.bold('\n=== 5. 执行 ==='))
 for (const cmd of cmds) {
   console.log(c.dim('$ ') + cmd)

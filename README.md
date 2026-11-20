@@ -93,7 +93,18 @@ push 时 Git Credential Manager 会弹 GitHub 授权窗口，点一下即可，*
 
 ### 1. 建仓库（中性命名）
 
-仓库名建议保持中性，例如 `antigen-interactive-course`。描述不要写单位、姓名、比赛信息。
+仓库名固定使用 `antigen-interactive-course`（本项目二维码已按此名生成，改名需重新生成二维码）。
+
+一键创建链接：`https://github.com/new?name=antigen-interactive-course`
+（组织账号：`https://github.com/organizations/<组织名>/repositories/new`）
+
+创建时四项设置：
+- Repository name：`antigen-interactive-course`
+- Description：**留空**，不要写单位、姓名、比赛信息
+- 可见性：**Public**（Private 仓库无法启用 GitHub Pages）
+- Initialize this repository：三个勾选项**全部不要勾**（README / .gitignore / license 会与本地提交冲突）
+
+> `npm run deploy` 会先检测仓库是否已创建；不存在时会直接给出一键创建链接并退出，不会盲推失败。
 
 ### 2. 推送代码
 
