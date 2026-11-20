@@ -10,7 +10,8 @@
     "typecheck": "tsc -b --noEmit",
     "qr": "node scripts/make-qr.mjs",
     "e2e": "node scripts/e2e-smoke.mjs",
-    "preview:test": "vite preview --port 4321 --strictPort"
+    "preview:test": "vite preview --port 4321 --strictPort",
+    "deploy": "node scripts/deploy.mjs"
   },
   "dependencies": {
     "qrcode": "^1.5.4",
